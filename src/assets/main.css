@@ -1,0 +1,12 @@
+@import './base.css';
+
+
+#app {
+  background-color: white;
+  display: block;
+  min-height: 100vh;
+  margin: 0px auto;
+  width: 31rem;
+  margin-inline: auto;
+  padding: O 15px;
+}
