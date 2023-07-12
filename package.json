@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@stephane888/wbu-atomique": "file:../wbu-atomique",
     "vue": "^3.3.4"
   },
   "devDependencies": {

@@ -1,0 +1,27 @@
+@use "./variables.scss" as *;
+@use "@stephane888/wbu-atomique/scss/wbu-ressources-clean.scss" as *;
+
+body {
+    background-color: #f0f0f0;
+}
+
+#app {
+    background-color: white;
+    display: block;
+    min-height: 100vh;
+    margin: 0px auto;
+    width: 31rem;
+    margin-inline: auto;
+    padding: O 15px;
+    color: black;
+}
+
+.comment-progressbar-container {
+    background-color: #f0f0f0;
+    height: 10px;
+}
+
+.comment-progressbar {
+    background-color: cyan;
+    height: 100%;
+}
