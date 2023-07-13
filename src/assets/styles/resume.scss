@@ -1,0 +1,27 @@
+@use './variables.scss' as *;
+.resume-container {
+    margin-inline: $default-inline-margin;
+    .comments-resume {
+        .comments-resume {
+            &-stars {
+                float: left;
+                .stars-set {
+                    margin: 0px 6px $resume-element-mb 0px;
+                }
+            }
+            &-counts {
+                float: left;
+                .resume-count {
+                    display: block;
+                    line-height: $resume-height;
+                    font-size: $resume-height - 5;
+                    margin: 0 6px 4px 0;
+                }
+            }
+            &-graphs {
+                overflow: hidden;
+                padding-top: 4px;
+            }
+        }
+    }
+}

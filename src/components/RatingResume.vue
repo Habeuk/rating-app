@@ -19,9 +19,9 @@ export default {
       return h("span", { class: numberStars ? activeStarsClass : emptyStarsClass })
     }
     /**
-     * 
-     * @param {number} part 
-     * @param {number} total 
+     *
+     * @param {number} part
+     * @param {number} total
      */
     const calcPercent = (part: number, total: number) => {
       return (part / total) * 100;
@@ -51,27 +51,34 @@ export default {
 </script>
 
 <template>
-  <div tabindex="0">
+  <div class="resume-container">
     <div class="comments-review">
-      <span class="yotpo-stars">
+      <span>
         <StarsRate :stars-number="5" />
         <span>{{ sum + " Avis" }}</span>
       </span>
     </div>
     <div class="comments-resume">
       <div class="comments-resume-stars">
-        <StarsRate v-for="index in 5" :key="6 - index" :stars-number="6 - index" />
+        <StarsRate
+          v-for="index in 5"
+          :key="6 - index"
+          :stars-number="6 - index"
+          class="stars-set"
+        />
       </div>
       <div class="comments-resume-counts">
-        <span v-for="index in 5" :key="6 - index">({{ ratesCounts[index - 1] }})</span>
+        <span class="resume-count" v-for="index in 5" :key="6 - index"
+          >({{ ratesCounts[index - 1] }})</span
+        >
       </div>
-      <div v-for="index in 5" :key="6 - index" class="graph-container">
-        <div class="comments-resume-graphs">
+      <div class="comments-resume-graphs">
+        <div v-for="index in 5" :key="6 - index" class="graph-container">
           <PercentBar :percentage="calcPercent(ratesCounts[index - 1], sum)" />
         </div>
       </div>
     </div>
   </div>
 </template>
-    
+
 <style scoped></style>

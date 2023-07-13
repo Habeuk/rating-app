@@ -1,6 +1,8 @@
-@use "./variables.scss" as *;
-@use "@stephane888/wbu-atomique/scss/wbu-ressources-clean.scss" as *;
-
+@use './variables.scss' as *;
+@use '@stephane888/wbu-atomique/scss/wbu-ressources-clean.scss' as *;
+@use './rateStars.scss';
+@use './resume.scss';
+@use './count-bar.scss';
 body {
     background-color: #f0f0f0;
 }
@@ -10,18 +12,39 @@ body {
     display: block;
     min-height: 100vh;
     margin: 0px auto;
-    width: 31rem;
-    margin-inline: auto;
-    padding: O 15px;
+    width: 30rem;
+    padding: 0 15px;
     color: black;
+    position: absolute;
+    right: 0;
 }
 
-.comment-progressbar-container {
-    background-color: #f0f0f0;
-    height: 10px;
+.comments-widget {
+    color: $font-color-primary;
+    .comments-resumed {
+        margin-inline: $default-inline-margin;
+        span {
+            font-weight: bold;
+            border-bottom: 3px solid $font-color-primary;
+            padding-bottom: 6px;
+        }
+    }
+    .small-boxes {
+        padding-top: 25px;
+    }
 }
-
-.comment-progressbar {
-    background-color: cyan;
-    height: 100%;
+.comments-meta {
+    .label {
+        float: left;
+        font-size: $default-font-size;
+        margin-top: 15px;
+    }
+    &-logo {
+        padding: 10px 5px;
+        img {
+            border-radius: 50%;
+            width: 30px;
+            height: auto;
+        }
+    }
 }

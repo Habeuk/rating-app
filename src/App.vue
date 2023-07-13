@@ -1,7 +1,7 @@
-<script setup lang="ts">
-import { h, ref, computed } from 'vue';
-import RatingResume from './components/RatingResume.vue';
-import CommentCard from './components/CommentCard.vue';
+<script setup lang="jsx">
+import { h, ref, computed } from "vue";
+import RatingResume from "./components/RatingResume.vue";
+import CommentCard from "./components/CommentCard.vue";
 
 const appLabel = "Proposé par Vysti";
 const comments = ref([
@@ -12,14 +12,15 @@ const comments = ref([
     title: " Parfait ",
     content: "Nickel, rentrée en cetose rapidement ",
     date: 1688986905420,
-    reply: ""
+    reply: "",
   },
   {
     name: "Michaël R.",
     state: true,
     rate: 2,
     title: "good",
-    content: "Excellent !! quasiment sans amertume ça devient un vrai régal et une bonne alternative aux autres édulcorants ! ",
+    content:
+      "Excellent !! quasiment sans amertume ça devient un vrai régal et une bonne alternative aux autres édulcorants ! ",
     date: 1688986905420,
     reply: "",
     votesUp: 2,
@@ -30,7 +31,8 @@ const comments = ref([
     state: false,
     rate: 5,
     title: "good",
-    content: "Huile très agréable pour le café gras. Je l’utilise également pour des préparations sans cuisson. ",
+    content:
+      "Huile très agréable pour le café gras. Je l’utilise également pour des préparations sans cuisson. ",
     date: 1688986905420,
     reply: "",
     votesUp: 2,
@@ -41,7 +43,8 @@ const comments = ref([
     state: true,
     rate: 5,
     title: " Très bon produit Je m’en",
-    content: "Très bon produit \nJe m’en sers pour à peu près tout y compris dans mon café alterné avec la crème goût vanille. \nA recommander pour les régimes cétogènes 👍 ",
+    content:
+      "Très bon produit \nJe m’en sers pour à peu près tout y compris dans mon café alterné avec la crème goût vanille. \nA recommander pour les régimes cétogènes 👍 ",
     date: 1688986905420,
     reply: "",
     votesUp: 2,
@@ -50,18 +53,19 @@ const comments = ref([
 ]);
 const resume = ref(resumeRates(comments.value));
 const commentsTitle = "Avis (" + comments.value.length + ")";
-
-
-
+const meta = {
+  label: "Proposé par ",
+  logo: "/src/assets/Vysti.png",
+};
 
 /**
  * function to get the count of each rate
  * @param {Array} comments
  * @return {Array} count of each rate
  */
-function resumeRates(comments: Array<{ rate: number }>): Array<number> {
+function resumeRates(comments) {
   let rates = [0, 0, 0, 0, 0];
-  comments.forEach(comment => {
+  comments.forEach((comment) => {
     rates[comment.rate - 1]++;
   });
   return rates;
@@ -70,9 +74,15 @@ function resumeRates(comments: Array<{ rate: number }>): Array<number> {
 
 <template>
   <div class="comments-widget">
+    <div class="comments-meta small-boxes">
+      <span class="label">{{ meta.label }} </span>
+      <div class="comments-meta-logo">
+        <img :src="meta.logo" />
+      </div>
+    </div>
     <div class="comments-header"></div>
     <RatingResume :rates-counts="resume" />
-    <div class="comments-resumed">
+    <div class="comments-resumed small-boxes">
       <span>{{ commentsTitle }}</span>
     </div>
     <div class="comments-content">
