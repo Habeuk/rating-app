@@ -11,7 +11,7 @@ const comments = ref([
     rate: 2,
     title: " Parfait ",
     content: "Nickel, rentrée en cetose rapidement ",
-    date: 1688986905420,
+    ts_date: 1688986905420,
     reply: "",
   },
   {
@@ -21,7 +21,7 @@ const comments = ref([
     title: "good",
     content:
       "Excellent !! quasiment sans amertume ça devient un vrai régal et une bonne alternative aux autres édulcorants ! ",
-    date: 1688986905420,
+    ts_date: 1688986905420,
     reply: "",
     votesUp: 2,
     votesDown: 4,
@@ -33,7 +33,7 @@ const comments = ref([
     title: "good",
     content:
       "Huile très agréable pour le café gras. Je l’utilise également pour des préparations sans cuisson. ",
-    date: 1688986905420,
+    ts_date: 1688986905420,
     reply: "",
     votesUp: 2,
     votesDown: 4,
@@ -45,7 +45,7 @@ const comments = ref([
     title: " Très bon produit Je m’en",
     content:
       "Très bon produit \nJe m’en sers pour à peu près tout y compris dans mon café alterné avec la crème goût vanille. \nA recommander pour les régimes cétogènes 👍 ",
-    date: 1688986905420,
+    ts_date: 1688986905420,
     reply: "",
     votesUp: 2,
     votesDown: 4,
