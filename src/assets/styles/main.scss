@@ -3,6 +3,9 @@
 @use './rateStars.scss';
 @use './resume.scss';
 @use './count-bar.scss';
+@use './comments.scss';
+
+
 body {
     background-color: #f0f0f0;
 }
@@ -19,32 +22,54 @@ body {
     right: 0;
 }
 
+.action-btn {
+    cursor: pointer;
+}
+
 .comments-widget {
     color: $font-color-primary;
+
+    &>* {
+        padding-inline: $default-inline-padding;
+    }
+
     .comments-resumed {
-        margin-inline: $default-inline-margin;
+        padding-bottom: 10px;
+
         span {
             font-weight: bold;
             border-bottom: 3px solid $font-color-primary;
             padding-bottom: 6px;
         }
     }
+
     .small-boxes {
         padding-top: 25px;
     }
 }
+
 .comments-meta {
+    border-bottom: 1px solid $border-default-color;
+
     .label {
         float: left;
         font-size: $default-font-size;
-        margin-top: 15px;
+        margin-top: 13px;
     }
+
     &-logo {
         padding: 10px 5px;
+        overflow: hidden;
+
         img {
             border-radius: 50%;
             width: 30px;
             height: auto;
+            padding: 2px;
         }
     }
+}
+
+.clear-fix {
+    clear: both;
 }

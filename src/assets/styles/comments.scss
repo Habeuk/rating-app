@@ -1,0 +1,137 @@
+@use "./variables.scss" as *;
+
+.single-comment {
+
+    padding-top: 25px;
+    padding-bottom: 22px;
+    border-top: 1px solid $border-default-color;
+
+    .comment-header {
+        position: relative;
+
+        .user-profil-icon {
+            background-color: #8b8686;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: block;
+            color: white;
+            font-size: 20px;
+            float: left;
+            position: relative;
+            margin-right: 10px;
+
+            .user-profil-letter {
+                position: absolute;
+                display: block;
+                top: 12px;
+                line-height: 20px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .header-elements {
+            overflow: hidden;
+
+            .user-profil-name,
+            .user-verified-state {
+                float: left;
+                font-size: $default-font-size - 2;
+            }
+
+            .user-profil-name {
+                font-weight: bold;
+                margin: 0 5px 0 0;
+            }
+
+            .user-verified-state {
+                color: #6A6C77;
+
+                &::after {
+                    clear: both;
+                }
+            }
+
+            .comments-rate {
+                display: inline-block;
+                height: 17px;
+                margin: 7px 10px 0 0;
+
+                svg {
+                    width: 17px;
+                    height: 17px;
+                }
+            }
+        }
+
+    }
+
+    .comment-main {
+        color: #6B6D76;
+        font-size: $default-font-size;
+        line-height: 17px;
+
+        .comment-title {
+            display: inline-block;
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+    }
+
+    .comment-footer {
+        .footer-action {
+            height: 16px;
+            line-height: 16px;
+            margin-top: 15px;
+            font-size: $default-font-size - 1;
+            color: $font-color-secondary;
+
+            .separator {
+                &::before {
+                    content: "|";
+                    font-size: 12px;
+                    margin-inline: 6px;
+                }
+            }
+
+            .open-actions {
+                float: left;
+                cursor: pointer;
+
+                .share-icon {
+                    float: left;
+                    margin-right: 5px;
+
+                    svg {
+                        display: block;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+
+            .list-item {
+                padding-inline: 2px;
+
+                .action-separator {
+                    display: inline-block;
+                    width: 12px;
+                    height: 12px;
+
+                    &::before {
+                        content: "";
+                        width: 2px;
+                        height: 2px;
+                        border-radius: 50%;
+                        display: inline-block;
+                        margin-block: 3px;
+                        margin-left: 6px;
+                        background-color: $font-color-secondary;
+
+                    }
+                }
+            }
+        }
+    }
+}

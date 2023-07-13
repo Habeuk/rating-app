@@ -60,21 +60,14 @@ export default {
     </div>
     <div class="comments-resume">
       <div class="comments-resume-stars">
-        <StarsRate
-          v-for="index in 5"
-          :key="6 - index"
-          :stars-number="6 - index"
-          class="stars-set"
-        />
+        <StarsRate v-for="index in 5" :key="6 - index" :stars-number="6 - index" class="stars-set" />
       </div>
       <div class="comments-resume-counts">
-        <span class="resume-count" v-for="index in 5" :key="6 - index"
-          >({{ ratesCounts[index - 1] }})</span
-        >
+        <span class="resume-count" v-for="index in 5" :key="6 - index">({{ ratesCounts[5 - index] }})</span>
       </div>
       <div class="comments-resume-graphs">
         <div v-for="index in 5" :key="6 - index" class="graph-container">
-          <PercentBar :percentage="calcPercent(ratesCounts[index - 1], sum)" />
+          <PercentBar :percentage="calcPercent(ratesCounts[5 - index], sum)" />
         </div>
       </div>
     </div>

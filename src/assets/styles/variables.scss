@@ -1,7 +1,9 @@
 @use '@stephane888/wbu-atomique/scss/_variables.scss' as *;
 $resume-height: 16px;
 $resume-element-mb: 4px;
-$default-inline-margin: 10px;
+$default-inline-padding: 10px;
+$default-font-size: 14px;
+
 $font-color-secondary: #6a6c77;
 $font-color-primary: #3e3636;
-$default-font-size: 14px;
+$border-default-color: #e3e3e3;
