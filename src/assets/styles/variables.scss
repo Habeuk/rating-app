@@ -4,6 +4,11 @@ $resume-element-mb: 4px;
 $default-inline-padding: 10px;
 $default-font-size: 14px;
 
-$font-color-secondary: #6a6c77;
-$font-color-primary: #3e3636;
+$color-primary: #3e3636;
+$color-secondray: #6a6c77;
+$color-third: #facf19;
+$color-forth: #b2afaf;
+$font-color-secondary: $color-secondray;
+$font-color-primary: $color-primary;
 $border-default-color: #e3e3e3;
+$border-color-secondary: #b2afaf;

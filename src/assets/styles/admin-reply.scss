@@ -1,0 +1,13 @@
+@use './variables.scss' as *;
+
+.single-comment {
+    .admin-reply {
+        margin: 25px 0 0 10px;
+        border-left: 2px solid $border-color-secondary;
+
+        .content {
+            padding: 25px 0;
+            margin-left: 10px;
+        }
+    }
+}

@@ -5,12 +5,13 @@ import PercentBar from './PercentBar.vue';
 
 export default {
   props: {
-    ratesCounts: Array<number>
+    ratesCounts: Array<number>,
+    rateSelected: Number
   },
-  setup(props) {
-
-    const activeStarsClass = "comment-icon-star";
-    const emptyStarsClass = "comment-icon-empty-star"
+  emits: [
+    "applyFilter"
+  ],
+  setup(props, { emit }) {
     /**
      * @param {number} numberStars
      * @return Array of span containing html code for five stars
@@ -27,6 +28,12 @@ export default {
       return (part / total) * 100;
     }
 
+    const applyFilter = (starsNumber: Number) => {
+      isFiltered.value = true
+      emit("applyFilter", starsNumber);
+    }
+
+    const isFiltered = ref(false);
     //initialize array with number of one egal to the number of active ex: stars 1 = [1, 0, 0, 0, 0]
     let stars = ref(new Array());
     let sum = 0;
@@ -43,8 +50,15 @@ export default {
       }
       stars.value.push(temp);
     }
-    let resumeLabel = sum + " Avis";
-    return { sum, calcPercent };
+    const activeStarsClass = "comment-icon-star";
+    const emptyStarsClass = "comment-icon-empty-star"
+    return {
+      sum,
+      isFiltered,
+      rateSelected: props.rateSelected,
+      calcPercent,
+      applyFilter
+    };
   },
   components: { StarsRate, PercentBar }
 }
@@ -54,8 +68,8 @@ export default {
   <div class="resume-container">
     <div class="comments-review">
       <span>
-        <StarsRate :stars-number="5" />
-        <span>{{ sum + " Avis" }}</span>
+        <StarsRate class="stars-review" :stars-number="5" />
+        <span class="review-label">{{ sum + " Avis" }}</span>
       </span>
     </div>
     <div class="comments-resume">
@@ -67,7 +81,9 @@ export default {
       </div>
       <div class="comments-resume-graphs">
         <div v-for="index in 5" :key="6 - index" class="graph-container">
-          <PercentBar :percentage="calcPercent(ratesCounts[5 - index], sum)" />
+          <PercentBar :class="{ filtered: isFiltered }" @onFilter="applyFilter"
+            :percentage="calcPercent(ratesCounts[5 - index], sum)" :rate="6 - index" :rate-selected="rateSelected"
+            :key="20 - index" />
         </div>
       </div>
     </div>

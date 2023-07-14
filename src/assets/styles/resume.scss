@@ -3,6 +3,19 @@
 .resume-container {
     padding-inline: $default-inline-padding;
 
+    .comments-review {
+        .review-label {
+            font-size: $default-font-size;
+            color: $font-color-secondary;
+        }
+
+        .stars-review {
+            padding-right: 10px;
+            display: inline-block;
+            height: 16px;
+        }
+    }
+
     .comments-resume {
         .comments-resume {
             &-stars {

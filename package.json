@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@stephane888/wbu-atomique": "file:../wbu-atomique",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

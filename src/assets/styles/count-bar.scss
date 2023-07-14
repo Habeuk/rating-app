@@ -1,13 +1,16 @@
 @use './variables.scss' as *;
 
 $bar-height: 10px;
+
 .comments-resume-graphs {
     .graph-container {
         margin-bottom: $resume-element-mb + $resume-height - $bar-height;
         background-color: #6a6c77;
+
         .comment-progressbar-container {
             background-color: #ededed;
             height: $bar-height;
+
             .comment-progressbar {
                 background-color: #3e3636;
                 height: 100%;

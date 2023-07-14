@@ -1,15 +1,34 @@
 <script>
-import { h } from 'vue';
-
+import { ref, computed } from 'vue';
 export default {
     props: {
-        percentage: Number
+        percentage: Number,
+        rate: Number,
+        rateSelected: Number
     },
-    setup(props) {
-        return () => h("div", { class: "comment-progressbar-container" }, h("div", {
-            style: { width: props.percentage + "%" },
-            class: "comment-progressbar"
-        }));
+    emits: ["onFilter"],
+    setup(props, { emit }) {
+        console.log("rate: ", props.rateSelected);
+        const isSelected = computed(() => {
+            return (props.rate == props.rateSelected);
+        });
+        const onSelect = () => {
+            if (props.percentage) {
+                emit("onFilter", props.rate);
+            }
+        }
+        return {
+            ...props,
+            isSelected,
+            onSelect
+        };
     }
 }
 </script>
+<template>
+    <div @click="onSelect" class="comment-progressbar-container" :class="{ selected: isSelected }"
+        :style="{ cursor: percentage != 0 ? 'pointer' : 'unset' }">
+        <div class="comment-progressbar" :style="{ width: percentage + '%' }">
+        </div>
+    </div>
+</template>

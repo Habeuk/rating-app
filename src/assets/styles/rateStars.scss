@@ -5,18 +5,21 @@
     line-height: 16px;
     height: 16px;
 }
+
 .comment-stars {
     display: block;
     float: left;
     height: 16px;
 
     &.comment-icon-star {
-        color: #facf19;
+        color: $color-third;
     }
+
     &.comment-icon-empty-star {
         opacity: 0.25;
         color: #87d9c2;
     }
+
     svg {
         width: 16px;
         height: 16px;

@@ -6,57 +6,89 @@ import CommentCard from "./components/CommentCard.vue";
 const appLabel = "Proposé par Vysti";
 const comments = ref([
   {
+    id: 0,
     name: "Lelong f.",
     state: true,
     rate: 2,
     title: " Parfait ",
     content: "Nickel, rentrée en cetose rapidement ",
-    ts_date: 1688986905420,
-    reply: "",
+    date: 1688986905420,
+    adminReply: {
+      name: "admin",
+      date: null,
+      content: ""
+    }
   },
   {
+    id: 1,
     name: "Michaël R.",
     state: true,
     rate: 2,
     title: "good",
     content:
       "Excellent !! quasiment sans amertume ça devient un vrai régal et une bonne alternative aux autres édulcorants ! ",
-    ts_date: 1688986905420,
-    reply: "",
+    date: 1688986905420,
+    adminReply: {
+      name: "admin",
+      date: Date.now(),
+      content: "this is the reply"
+    },
     votesUp: 2,
     votesDown: 4,
   },
   {
+    id: 3,
     name: "Vanessa M.",
     state: false,
     rate: 5,
     title: "good",
     content:
       "Huile très agréable pour le café gras. Je l’utilise également pour des préparations sans cuisson. ",
-    ts_date: 1688986905420,
-    reply: "",
+    date: 1688986905420,
+    adminReply: {
+      name: "admin",
+      date: null,
+      content: ""
+    },
     votesUp: 2,
     votesDown: 4,
   },
   {
+    id: 4,
     name: "Miguel B",
     state: true,
     rate: 5,
     title: " Très bon produit Je m’en",
     content:
       "Très bon produit \nJe m’en sers pour à peu près tout y compris dans mon café alterné avec la crème goût vanille. \nA recommander pour les régimes cétogènes 👍 ",
-    ts_date: 1688986905420,
-    reply: "",
+    date: 1688986905420,
+    adminReply: {
+      name: "admin",
+      date: Date.now(),
+      content: "this is the reply"
+    },
     votesUp: 2,
     votesDown: 4,
   },
 ]);
+const newComments = ref(comments.value);
+const filter = ref(0);
+const adminReply = {
+  name: "admin",
+  date: Date.now(),
+  content: "this is the reply"
+}
 const resume = ref(resumeRates(comments.value));
 const commentsTitle = "Avis (" + comments.value.length + ")";
 const meta = {
   label: "Proposé par ",
   logo: "/src/assets/Vysti.png",
 };
+
+const getComments = computed(() => {
+  newComments.value = (filter.value) ? comments.value.filter(comment => (comment.rate == filter.value)) : comments.value;
+  return newComments.value;
+})
 
 /**
  * function to get the count of each rate
@@ -70,6 +102,11 @@ function resumeRates(comments) {
   });
   return rates;
 }
+
+const updateFilter = (newFilter) => {
+  filter.value = -1
+  filter.value = newFilter
+}
 </script>
 
 <template>
@@ -81,12 +118,12 @@ function resumeRates(comments) {
       </div>
     </div>
     <div class="comments-header"></div>
-    <RatingResume :rates-counts="resume" />
+    <RatingResume @applyFilter="updateFilter" :rates-counts="resume" :rate-selected="filter" />
     <div class="comments-resumed small-boxes">
       <span>{{ commentsTitle }}</span>
     </div>
     <div class="comments-content">
-      <CommentCard v-for="element in comments" v-bind="element" />
+      <CommentCard v-for="element in getComments" v-bind="element" :key="element.id" />
     </div>
   </div>
 </template>
