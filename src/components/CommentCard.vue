@@ -95,7 +95,7 @@ export default {
     </div>
     <div class="comment-footer">
       <div class="footer-action">
-        <div>
+        <div class="primary-action">
           <span class="open-actions" @click="showMediaLink = !showMediaLink">
             <span class="share-icon"
               ><svg
@@ -153,41 +153,76 @@ export default {
             </span>
           </Transition>
         </div>
-        <div class="comment-date">{{ date }}</div>
-        <div class="comment-vote" role="group">
-          <div class="up-vote vote">
-            <span class="up-vote-icon vote-icon"
-              ><svg
-                fill="currentColor"
-                width="800"
-                height="800"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 21a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3v10Zm16.949-11h-5.771V5c0-2-3.076-2-3.076-2s0 4-1.026 5C9.52 8.543 8.669 10.348 8 11v10h10.644a2.036 2.036 0 0 0 2.017-1.642l1.3-7A2.015 2.015 0 0 0 19.949 10Z"
-                /></svg
-            ></span>
-          </div>
-          <span class="up-vote-sum vote-count">{{ votesUp }}</span>
-          <div class="down-vote vote">
-            <span class="down-vote-icon vote-icon"
-              ><svg
-                width="800"
-                height="800"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8.1 20.5c0 1.5 1.482 2.5 2.64 2.5.806 0 .869-.613.993-1.82.055-.53.121-1.174.267-1.93.386-2.002 1.72-4.56 2.996-5.325V8C15 5.75 14.25 5 11 5H7.227C5.051 5 4.524 6.432 4.328 6.964A15.85 15.85 0 0 1 4.315 7c-.114.306-.358.546-.638.82-.31.306-.664.653-.927 1.18-.311.623-.27 1.177-.233 1.67.023.299.044.575-.017.83-.064.27-.146.475-.225.671-.143.356-.275.686-.275 1.329 0 1.5.748 2.498 2.315 2.498H8.5S8.1 19 8.1 20.5zM18.5 15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-3 0v7a1.5 1.5 0 0 0 1.5 1.5z"
+        <div class="reaction">
+          <div class="comment-date">{{ date }}</div>
+          <div class="comment-vote" role="group">
+            <div class="up-vote vote">
+              <span class="up-vote-icon vote-icon"
+                ><svg
                   fill="currentColor"
-                /></svg
-            ></span>
+                  width="800"
+                  height="800"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 21a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3v10Zm16.949-11h-5.771V5c0-2-3.076-2-3.076-2s0 4-1.026 5C9.52 8.543 8.669 10.348 8 11v10h10.644a2.036 2.036 0 0 0 2.017-1.642l1.3-7A2.015 2.015 0 0 0 19.949 10Z"
+                  /></svg
+              ></span>
+            </div>
+            <span class="up-vote-sum vote-count">{{ votesUp }}</span>
+            <div class="down-vote vote">
+              <span class="down-vote-icon vote-icon"
+                ><svg
+                  width="800"
+                  height="800"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.1 20.5c0 1.5 1.482 2.5 2.64 2.5.806 0 .869-.613.993-1.82.055-.53.121-1.174.267-1.93.386-2.002 1.72-4.56 2.996-5.325V8C15 5.75 14.25 5 11 5H7.227C5.051 5 4.524 6.432 4.328 6.964A15.85 15.85 0 0 1 4.315 7c-.114.306-.358.546-.638.82-.31.306-.664.653-.927 1.18-.311.623-.27 1.177-.233 1.67.023.299.044.575-.017.83-.064.27-.146.475-.225.671-.143.356-.275.686-.275 1.329 0 1.5.748 2.498 2.315 2.498H8.5S8.1 19 8.1 20.5zM18.5 15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-3 0v7a1.5 1.5 0 0 0 1.5 1.5z"
+                    fill="currentColor"
+                  /></svg
+              ></span>
+            </div>
+            <span class="down-vote-sum vote-count">{{ votesDown }}</span>
           </div>
-          <span class="down-vote-sum vote-count">{{ votesDown }}</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          <span>
+            <div>
+              <img
+                class="yotpo-store-avatar"
+                src="//cdn-yotpo-images-production.yotpo.com/App/323944/61533541/thumb.png?1540639645"
+                alt=""
+              />
+            </div>
+            <span></span>
+          </span>
+          <div>
+            <div>
+              <span>Product manager1</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div></div>
+          <div>
+            Merci pour votre commentaire. <br />Il est prévu que nous augmentions l'arôme
+            lors de la prochaine fabrication.
+          </div>
+        </div>
+        <div>
+          <div>
+            <span>03/06/23</span>
+          </div>
         </div>
       </div>
     </div>

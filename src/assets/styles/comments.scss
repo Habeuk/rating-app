@@ -79,13 +79,18 @@
 
     .comment-footer {
         .footer-action {
-            height: 16px;
             display: block;
             line-height: 16px;
-            margin-block: 15px;
             font-size: $default-font-size - 1;
             color: $font-color-secondary;
             transition: color 300ms ease-in-out;
+            .primary-action {
+                height: 16px;
+                margin-block: 15px;
+            }
+            .reaction {
+                height: 16px;
+            }
             .separator {
                 &::before {
                     content: '|';
@@ -143,7 +148,6 @@
             float: right;
             .vote {
                 float: left;
-                margin-top: 2px;
                 margin-left: 10px;
                 .vote-icon svg {
                     width: 17px;
@@ -153,6 +157,7 @@
             }
             .vote-count {
                 float: left;
+                margin-top: 1px;
             }
         }
     }
