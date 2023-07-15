@@ -14,6 +14,9 @@ $bar-height: 10px;
             .comment-progressbar {
                 background-color: #3e3636;
                 height: 100%;
+                &.inactive {
+                    background-color: $color-forth;
+                }
             }
         }
     }

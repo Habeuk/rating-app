@@ -74,16 +74,27 @@ export default {
     </div>
     <div class="comments-resume">
       <div class="comments-resume-stars">
-        <StarsRate v-for="index in 5" :key="6 - index" :stars-number="6 - index" class="stars-set" />
+        <StarsRate
+          v-for="index in 5"
+          :key="6 - index"
+          :stars-number="6 - index"
+          class="stars-set"
+        />
       </div>
       <div class="comments-resume-counts">
-        <span class="resume-count" v-for="index in 5" :key="6 - index">({{ ratesCounts[5 - index] }})</span>
+        <span class="resume-count" v-for="index in 5" :key="6 - index"
+          >({{ ratesCounts[5 - index] }})</span
+        >
       </div>
       <div class="comments-resume-graphs">
         <div v-for="index in 5" :key="6 - index" class="graph-container">
-          <PercentBar :class="{ filtered: isFiltered }" @onFilter="applyFilter"
-            :percentage="calcPercent(ratesCounts[5 - index], sum)" :rate="6 - index" :rate-selected="rateSelected"
-            :key="20 - index" />
+          <PercentBar
+            @onFilter="applyFilter"
+            :percentage="calcPercent(ratesCounts[5 - index], sum)"
+            :rate="6 - index"
+            :rate-selected="rateSelected"
+            :key="20 - index"
+          />
         </div>
       </div>
     </div>

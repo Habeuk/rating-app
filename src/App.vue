@@ -1,9 +1,11 @@
 <script setup lang="jsx">
-import { h, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import RatingResume from "./components/RatingResume.vue";
 import CommentCard from "./components/CommentCard.vue";
+import { useStore } from "vuex";
 
 const appLabel = "Proposé par Vysti";
+const store = useStore();
 const comments = ref([
   {
     id: 0,
@@ -16,8 +18,8 @@ const comments = ref([
     adminReply: {
       name: "admin",
       date: null,
-      content: ""
-    }
+      content: "",
+    },
   },
   {
     id: 1,
@@ -31,7 +33,7 @@ const comments = ref([
     adminReply: {
       name: "admin",
       date: Date.now(),
-      content: "this is the reply"
+      content: "this is the reply",
     },
     votesUp: 2,
     votesDown: 4,
@@ -48,7 +50,7 @@ const comments = ref([
     adminReply: {
       name: "admin",
       date: null,
-      content: ""
+      content: "",
     },
     votesUp: 2,
     votesDown: 4,
@@ -65,7 +67,7 @@ const comments = ref([
     adminReply: {
       name: "admin",
       date: Date.now(),
-      content: "this is the reply"
+      content: "this is the reply",
     },
     votesUp: 2,
     votesDown: 4,
@@ -76,19 +78,24 @@ const filter = ref(0);
 const adminReply = {
   name: "admin",
   date: Date.now(),
-  content: "this is the reply"
-}
+  content: "this is the reply",
+};
 const resume = ref(resumeRates(comments.value));
-const commentsTitle = "Avis (" + comments.value.length + ")";
+const commentsTitle = computed(() => {
+  return "Avis (" + store.state.commentsNumber + ")";
+});
 const meta = {
   label: "Proposé par ",
   logo: "/src/assets/Vysti.png",
 };
 
 const getComments = computed(() => {
-  newComments.value = (filter.value) ? comments.value.filter(comment => (comment.rate == filter.value)) : comments.value;
+  newComments.value = store.state.rateSelected
+    ? comments.value.filter((comment) => comment.rate == store.state.rateSelected)
+    : comments.value;
+  store.dispatch("set_comments_number", newComments.value.length);
   return newComments.value;
-})
+});
 
 /**
  * function to get the count of each rate
@@ -104,9 +111,9 @@ function resumeRates(comments) {
 }
 
 const updateFilter = (newFilter) => {
-  filter.value = -1
-  filter.value = newFilter
-}
+  filter.value = -1;
+  filter.value = newFilter;
+};
 </script>
 
 <template>
@@ -118,7 +125,11 @@ const updateFilter = (newFilter) => {
       </div>
     </div>
     <div class="comments-header"></div>
-    <RatingResume @applyFilter="updateFilter" :rates-counts="resume" :rate-selected="filter" />
+    <RatingResume
+      @applyFilter="updateFilter"
+      :rates-counts="resume"
+      :rate-selected="filter"
+    />
     <div class="comments-resumed small-boxes">
       <span>{{ commentsTitle }}</span>
     </div>
