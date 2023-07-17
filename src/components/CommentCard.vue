@@ -6,16 +6,16 @@ export default {
     props: {
         id: Number,
         name: String,
-        state: Boolean,
-        rate: Number,
-        title: String,
-        content: String,
-        date: Number,
-        reply: String,
-        votesUp: Number,
-        votesDown: Number,
+        surname: String,
+        note: Number,
+        description: String,
+        created_at: Number,
+        likes: Number,
+        dislikes: Number,
         adminPictureLink: String,
         adminName: String,
+        title: String,
+        state: Boolean,
         adminReply: {
             type: Object,
             default: { name: "hello" }
@@ -95,14 +95,14 @@ export default {
                 </div>
                 <div class="clear-fix"></div>
                 <div class="comments-rate">
-                    <StarsRate :stars-number="rate" />
+                    <StarsRate :stars-number="note" />
                 </div>
             </div>
         </div>
         <div class="comment-main">
             <div class="comment-title">{{ title }}</div>
             <div class="content-content">
-                {{ content }}
+                {{ description }}
             </div>
         </div>
         <div class="comment-footer">
@@ -142,7 +142,7 @@ export default {
                     </Transition>
                 </div>
                 <div class="reaction">
-                    <div class="comment-date">{{ getFormatedDate(date) }}</div>
+                    <div class="comment-date">{{ getFormatedDate(created_at) }}</div>
                     <div class="comment-vote" role="group">
                         <div class="up-vote vote">
                             <span class="up-vote-icon vote-icon"><svg fill="currentColor" width="800" height="800"
@@ -151,7 +151,7 @@ export default {
                                         d="M3 21a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3v10Zm16.949-11h-5.771V5c0-2-3.076-2-3.076-2s0 4-1.026 5C9.52 8.543 8.669 10.348 8 11v10h10.644a2.036 2.036 0 0 0 2.017-1.642l1.3-7A2.015 2.015 0 0 0 19.949 10Z" />
                                 </svg></span>
                         </div>
-                        <span class="up-vote-sum vote-count">{{ votesUp }}</span>
+                        <span class="up-vote-sum vote-count">{{ likes }}</span>
                         <div class="down-vote vote">
                             <span class="down-vote-icon vote-icon"><svg width="800" height="800" viewBox="0 0 24 24"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +160,7 @@ export default {
                                         fill="currentColor" />
                                 </svg></span>
                         </div>
-                        <span class="down-vote-sum vote-count">{{ votesDown }}</span>
+                        <span class="down-vote-sum vote-count">{{ dislikes }}</span>
                     </div>
                 </div>
             </div>

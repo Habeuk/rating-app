@@ -4,10 +4,27 @@ import { useStore } from "vuex";
 import RatingResume from "./components/RatingResume.vue";
 import CommentCard from "./components/CommentCard.vue";
 import Paginator from "./components/Paginator.vue";
+import axios from "./axios-configure";
+
+
+// .get("http://my-nutribe.kksa/shopify/get-reviews.php?product_handler=mct-pure-huile-mct-coco-bouteille-en-verre")
+// axios.get("/shopify/get-reviews.php?product_handler=" + "mct-pure-huile-mct-coco-bouteille-en-verre")
+//   .then((response) => {
+//     console.log(response);
+//   });
+
+
 
 const appLabel = "Proposé par Vysti";
 const store = useStore();
-const comments = ref([
+
+store.dispatch("loadData", null);
+
+
+
+console.log(store.state.paginator);
+const comments = ref(store.state.comments);
+comments.value = comments.value ? comments.value : ref([
   {
     id: 0,
     name: "Lelong f.",
@@ -74,6 +91,7 @@ const comments = ref([
     votesDown: 4,
   },
 ]);
+console.log("there ", comments.value);
 const newComments = ref(comments.value);
 const filter = ref(0);
 const adminReply = {
@@ -91,11 +109,9 @@ const meta = {
 };
 
 const getComments = computed(() => {
-  newComments.value = store.state.rateSelected
-    ? comments.value.filter((comment) => comment.rate == store.state.rateSelected)
-    : comments.value;
-  store.dispatch("set_comments_number", newComments.value.length);
-  return newComments.value;
+  comments.value = store.getters.getFormatedComments;
+  console.log("comments :", comments.value);
+  return store.getters.getFormatedComments;
 });
 
 /**
