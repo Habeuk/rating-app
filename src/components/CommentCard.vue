@@ -70,7 +70,6 @@ export default {
 </script>
 
 <template>
-    {{ adminReply.conent }}
     <div class="single-comment">
         <div class="comment-header">
             <span class="user-profil-icon">

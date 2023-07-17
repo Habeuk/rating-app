@@ -1,8 +1,9 @@
 <script setup lang="jsx">
 import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import RatingResume from "./components/RatingResume.vue";
 import CommentCard from "./components/CommentCard.vue";
-import { useStore } from "vuex";
+import Paginator from "./components/Paginator.vue";
 
 const appLabel = "Proposé par Vysti";
 const store = useStore();
@@ -125,16 +126,14 @@ const updateFilter = (newFilter) => {
       </div>
     </div>
     <div class="comments-header"></div>
-    <RatingResume
-      @applyFilter="updateFilter"
-      :rates-counts="resume"
-      :rate-selected="filter"
-    />
+    <RatingResume @applyFilter="updateFilter" :rates-counts="resume" :rate-selected="filter" />
     <div class="comments-resumed small-boxes">
       <span>{{ commentsTitle }}</span>
     </div>
     <div class="comments-content">
       <CommentCard v-for="element in getComments" v-bind="element" :key="element.id" />
+      <Paginator v-if="store.state.commentsNumber > store.state.paginator.commentsPerPages"
+        v-bind="store.state.paginator" />
     </div>
   </div>
 </template>
