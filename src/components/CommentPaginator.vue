@@ -27,20 +27,20 @@ export default {
       lastIndex.value += 1 - firstIndex.value;
     }
     if (lastIndex.value > pagesNumber) {
-      firstIndex.value -= pagesNumber - lastIndex.value
+      firstIndex.value -= pagesNumber - lastIndex.value;
     }
-    lastIndex.value = (lastIndex.value > pagesNumber) ? pagesNumber : lastIndex.value;
-    firstIndex.value = (firstIndex.value < 1) ? 1 : firstIndex.value;
+    lastIndex.value = lastIndex.value > pagesNumber ? pagesNumber : lastIndex.value;
+    firstIndex.value = firstIndex.value < 1 ? 1 : firstIndex.value;
 
     const getPageCount = computed(() => {
       return lastIndex.value - firstIndex.value + 1;
     });
     const getPageNumber = computed(() => {
       return Math.ceil(store.state.commentsNumber / props.commentsPerPages);
-    })
+    });
     return {
       firstIndex,
-      currentPage: props.currentPage,
+      CP: props.currentPage,
       getPageCount,
       getPageNumber,
     };
@@ -51,10 +51,12 @@ export default {
 <template>
   <nav role="comments-navigation">
     <div>
-      <a class="previous-comments" :class="{ active: currentPage > 1 }" href="#"></a>
+      <a class="previous-comments" :class="{ active: CP > 1 }" href="#"></a>
       <a v-for="range in getPageCount" :key="range" href="#" class="menu-item goTo"
-        :class="{ active: (currentPage == (firstIndex + range - 1)) }"> {{ firstIndex + range - 1 }} </a>
-      <a class="next-comments" :class="{ active: currentPage < getPageNumber }" href="#"></a>
+        :class="{ active: CP == firstIndex + range - 1 }">
+        {{ firstIndex + range - 1 }}
+      </a>
+      <a class="next-comments" :class="{ active: CP < getPageNumber }" href="#"></a>
     </div>
   </nav>
 </template>

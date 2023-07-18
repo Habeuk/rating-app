@@ -35,6 +35,9 @@ export default new Vuex.Store({
                 comments.push({ ...templateResponse(), ...element })
             })
             return comments;
+        },
+        getResume(state){
+            return Object.entries(state.summary);
         }
     },
     mutations: {

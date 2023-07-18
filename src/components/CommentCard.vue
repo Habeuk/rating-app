@@ -16,10 +16,7 @@ export default {
         adminName: String,
         title: String,
         state: Boolean,
-        adminReply: {
-            type: Object,
-            default: { name: "hello" }
-        },
+        adminReply: Object,
         adminReplyDate: Number,
     },
     setup(props) {
@@ -30,18 +27,17 @@ export default {
         const showMediaLink = ref(false);
         const shareLabel = "Partager";
         let currentUrl = window.location.href.replaceAll("/", "%2F").replaceAll(":", "%3AF");
-        let testUrl = "www.nutribe.fr";
         let shareLinks = [
             {
                 label: "Facebook",
                 link:
                     "https://www.facebook.com/sharer/sharer.php?u=" +
-                    testUrl +
+                    currentUrl +
                     "&amp;src=sdkpreparse",
             },
             {
                 label: "Twitter",
-                link: "https://twitter.com/intent/tweet?text=visit%20this%20&url=" + testUrl,
+                link: "https://twitter.com/intent/tweet?text=visit%20this%20&url=" + currentUrl,
             },
         ];
 
@@ -50,11 +46,11 @@ export default {
             return false;
         };
         let getFormatedDate = (date) => {
-            let d = new Date(date);
+            let d = new Date(date * 1000);
             let day = d.getDate() < 10 ? "0" + d.getDate() : d.getDate();
             let month = d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth();
             return day + "/" + month + "/" + (d.getYear() - 100);
-        }
+        };
         return {
             ...props,
             stateText,
@@ -120,7 +116,13 @@ export default {
                     stroke-width: 2;
                   " />
                                 <path data-name="primary" d="M21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"
-                                    style="fill: none; stroke: currentColor;  stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;" />
+                                    style="
+                    fill: none;
+                    stroke: currentColor;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-width: 2;
+                  " />
                             </svg></span>
                         <span class="share-label">{{ shareLabel }}</span>
                     </span>
@@ -128,7 +130,7 @@ export default {
                         <span v-if="showMediaLink" class="media-links">
                             <span class="separator"></span>
                             <span class="share-options-wrapper">
-                                <span v-for="index in shareLinks.length" class="list-item">
+                                <span v-for="index in shareLinks.length" class="list-item" :key="index">
                                     <span class="y-label yotpo-action">
                                         <span class="action-btn" @click="popupLink(shareLinks[index - 1].link)">{{
                                             shareLinks[index - 1].label }}
