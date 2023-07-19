@@ -2,15 +2,17 @@ import Vuex from "vuex";
 import axios from "../axios-configure";
 export default new Vuex.Store({
     state: {
+        product_handler: "",
         rateSelected: 0,
         comments: [],
         summary: [],
         commentsNumber: 0,
         paginator: {
             currentPage: 1,
-            commentsPerPages: 2,
+            commentsPerPages: 10,
             indexPrinted: 3,
         },
+        note: 0
     },
     getters: {
         getFormatedComments(state) {
@@ -41,6 +43,9 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        INIT_HANDLER(state, handler) {
+            state.product_handler = handler;
+        },
         SET_RATE_SELECTED(state, payload) {
             state.rateSelected = payload;
         },
@@ -61,11 +66,15 @@ export default new Vuex.Store({
             }
             else
                 state.commentsNumber = state.summary[state.rateSelected - 1];
-            console.log(state.summary);
+        },
+        UPDATE_FILTER(state, payload) {
+            if (payload.note || payload.note == 0)
+                state.rateSelected = payload.note
+            if (payload.page)
+                state.paginator.currentPage = payload.page
         }
     },
     actions: {
-
         set_selected_rate({ commit }, payload) {
             commit("SET_RATE_SELECTED", payload);
         },
@@ -77,13 +86,17 @@ export default new Vuex.Store({
          * @param {*} param0 
          * @param {*} payload 
          */
-        loadData({ commit }, payload) {
+        loadData({ commit, state }, payload) {
             let url = "/shopify/get-reviews.php?";
-            url += "product_handler=" + payload.product_handler;
-            if (payload.note)
+            url += "product_handler=" + state.product_handler;
+            if (payload.note || payload.note == 0)
+                commit("UPDATE_FILTER", { note: payload.note })
+            if (state.rateSelected)
                 url += "&note=" + payload.note;
-            if (payload.page)
+            if (payload.page) {
+                commit("UPDATE_FILTER", { page: payload.page })
                 url += "&page=" + payload.page;
+            }
             axios.get(url)
                 .then((response) => {
                     if (response.status == 200)

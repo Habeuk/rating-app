@@ -1,0 +1,58 @@
+@use './variables.scss' as *;
+
+.comments-widget {
+    .comments-content {
+        .comments-navigation {
+            .comments-indexes {
+                display: flex;
+                color: $font-color-primary;
+                line-height: 16px;
+                justify-content: center;
+
+                .go-to {
+                    text-decoration: none;
+                    color: inherit;
+                    display: block;
+                    margin-right: 15px;
+                    font-size: 16px;
+
+                    &.active {
+                        font-weight: bold;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+
+                    &:hover {
+                        color: $hover-color;
+                    }
+
+                    &.disabled {
+                        color: $hover-color;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+                }
+
+                .puce {
+                    &.previous-comments {
+                        margin-right: 30px;
+                    }
+
+                    &.next-comments {
+                        margin-left: 15px;
+                    }
+
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+
+                    svg {
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+
+            }
+        }
+    }
+}

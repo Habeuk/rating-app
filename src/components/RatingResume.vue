@@ -13,7 +13,6 @@ export default {
   ],
   setup(props, { emit }) {
 
-    console.log(props.ratesCounts);
 
     const calcSum = computed(() => {
       let sum = 0;

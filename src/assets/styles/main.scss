@@ -4,6 +4,7 @@
 @use './resume.scss';
 @use './count-bar.scss';
 @use './comments.scss';
+@use './paginator.scss';
 
 
 #app {
@@ -38,6 +39,11 @@
 
     .small-boxes {
         padding-top: 25px;
+    }
+
+    .reset-comments {
+        display: inline-block;
+        cursor: pointer;
     }
 }
 

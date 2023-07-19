@@ -8,17 +8,13 @@ import CommentPaginator from "./components/CommentPaginator.vue";
 // const appLabel = "Proposé par Vysti";
 const store = useStore();
 
-const product_handler = ref("mct-pure-huile-mct-coco-bouteille-en-verre");
-store.dispatch("loadData", { product_handler: product_handler.value });
-
 const commentsTitle = computed(() => {
   return "Avis (" + store.state.commentsNumber + ")";
 });
-const meta = {
-  label: "Proposé par ",
-  logo: "/src/assets/Vysti.png",
-};
 
+const getPaginator = computed(() => {
+  return store.state.paginator;
+})
 const getComments = computed(() => {
   return store.getters.getFormatedComments;
 });
@@ -39,8 +35,11 @@ const paginate = computed(() => {
 // }
 
 const updateFilter = (newFilter) => {
-  store.dispatch("loadData", { product_handler: product_handler.value, note: newFilter });
+  store.dispatch("loadData", { note: newFilter });
 };
+const changePage = (page) => {
+  store.dispatch("loadData", { page });
+}
 </script>
 
 <template>
@@ -48,12 +47,14 @@ const updateFilter = (newFilter) => {
     <div class="comments-header"></div>
     <RatingResume @applyFilter="updateFilter" :rates-counts="store.state.summary"
       :rate-selected="store.state.rateSelected" />
+    <div class="clear-fix"></div>
+    <div @click="updateFilter(0)" v-if="store.state.rateSelected" class="reset-comments">Voir tous les avis</div>
     <div class="comments-resumed small-boxes">
       <span>{{ commentsTitle }}</span>
     </div>
     <div class="comments-content">
       <CommentCard v-for="element in getComments" v-bind="element" :key="element.id" />
-      <CommentPaginator v-if="paginate" v-bind="store.state.paginator" />
+      <CommentPaginator v-if="paginate" v-bind="getPaginator" @changePage="changePage" />
     </div>
   </div>
 </template>
