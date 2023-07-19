@@ -4,8 +4,8 @@ export default new Vuex.Store({
     state: {
         rateSelected: 0,
         comments: [],
-        summary: {},
-        commentsNumber: 4,
+        summary: [],
+        commentsNumber: 0,
         paginator: {
             currentPage: 1,
             commentsPerPages: 2,
@@ -36,8 +36,8 @@ export default new Vuex.Store({
             })
             return comments;
         },
-        getResume(state){
-            return Object.entries(state.summary);
+        getResume(state) {
+            return Object.values(state.summary).reverse();
         }
     },
     mutations: {
@@ -49,8 +49,19 @@ export default new Vuex.Store({
         },
         SET_DATAS(state, payload) {
             state.comments = payload.review;
-            console.log(state.comments);
-            state.summary = payload.summary;
+            state.summary = Object.values(payload.summary).reverse().map(element => {
+                return Number(element);
+            });
+            if (!state.rateSelected) {
+
+                state.commentsNumber = 0;
+                state.summary?.forEach(element => {
+                    state.commentsNumber += Number(element);
+                })
+            }
+            else
+                state.commentsNumber = state.summary[state.rateSelected - 1];
+            console.log(state.summary);
         }
     },
     actions: {
@@ -67,14 +78,19 @@ export default new Vuex.Store({
          * @param {*} payload 
          */
         loadData({ commit }, payload) {
-            axios.get("/shopify/get-reviews.php?product_handler=" + "mct-pure-huile-mct-coco-bouteille-en-verre")
+            let url = "/shopify/get-reviews.php?";
+            url += "product_handler=" + payload.product_handler;
+            if (payload.note)
+                url += "&note=" + payload.note;
+            if (payload.page)
+                url += "&page=" + payload.page;
+            axios.get(url)
                 .then((response) => {
                     if (response.status == 200)
                         commit("SET_DATAS", response.data);
-                    console.log(response.data.review);
                 })
                 .catch((err) => {
-                    console.log("couldn't get comments: ", err);
+                    console.log('something went wrong :', err)
                 })
                 ;
         }

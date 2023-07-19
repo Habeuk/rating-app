@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --debug",
     "preview": "vite preview",
-    "Dev": "vite build --watch --mode development  --outDir files --target lib --name ratingApp 'src/main.js'",
+    "Dev": "vite build --watch --mode development  --outDir files",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },

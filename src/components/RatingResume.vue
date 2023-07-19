@@ -1,20 +1,29 @@
 <script lang="ts">
-import { h, ref } from 'vue';
+import { computed, h, ref } from 'vue';
 import StarsRate from './StarsRate.vue';
 import PercentBar from './PercentBar.vue';
 
 export default {
   props: {
-    ratesCounts: Array<number>,
+    ratesCounts: Array,
     rateSelected: Number
   },
   emits: [
     "applyFilter"
   ],
   setup(props, { emit }) {
+
+    console.log(props.ratesCounts);
+
+    const calcSum = computed(() => {
+      let sum = 0;
+      props.ratesCounts?.forEach(element => {
+        sum += element;
+      })
+      return sum;
+    })
     /**
      * @param {number} numberStars
-     * @return Array of span containing html code for five stars
    */
     const createHTMLStars = (numberStars: number) => {
       return h("span", { class: numberStars ? activeStarsClass : emptyStarsClass })
@@ -27,8 +36,7 @@ export default {
     const calcPercent = (part: number, total: number) => {
       return (part / total) * 100;
     }
-
-    const applyFilter = (starsNumber: Number) => {
+    const applyFilter = (starsNumber: number) => {
       isFiltered.value = true
       emit("applyFilter", starsNumber);
     }
@@ -36,12 +44,6 @@ export default {
     const isFiltered = ref(false);
     //initialize array with number of one egal to the number of active ex: stars 1 = [1, 0, 0, 0, 0]
     let stars = ref(new Array());
-    let sum = 0;
-    let counts = props.ratesCounts;
-
-    counts?.forEach(num => {
-      sum += num
-    });
 
     for (let index = 0; index < 5; index++) {
       let temp = new Array(0, 0, 0, 0, 0);
@@ -53,10 +55,10 @@ export default {
     const activeStarsClass = "comment-icon-star";
     const emptyStarsClass = "comment-icon-empty-star"
     return {
-      sum,
       isFiltered,
       rateSelected: props.rateSelected,
       calcPercent,
+      calcSum,
       applyFilter
     };
   },
@@ -69,32 +71,20 @@ export default {
     <div class="comments-review">
       <span>
         <StarsRate class="stars-review" :stars-number="5" />
-        <span class="review-label">{{ sum + " Avis" }}</span>
+        <span class="review-label">{{ calcSum + " Avis" }}</span>
       </span>
     </div>
     <div class="comments-resume">
       <div class="comments-resume-stars">
-        <StarsRate
-          v-for="index in 5"
-          :key="6 - index"
-          :stars-number="6 - index"
-          class="stars-set"
-        />
+        <StarsRate v-for="index in 5" :key="6 - index" :stars-number="6 - index" class="stars-set" />
       </div>
       <div class="comments-resume-counts">
-        <span class="resume-count" v-for="index in 5" :key="6 - index"
-          >({{ ratesCounts[5 - index] }})</span
-        >
+        <span class="resume-count" v-for="index in 5" :key="6 - index">({{ ratesCounts[5 - index] }})</span>
       </div>
       <div class="comments-resume-graphs">
         <div v-for="index in 5" :key="6 - index" class="graph-container">
-          <PercentBar
-            @onFilter="applyFilter"
-            :percentage="calcPercent(ratesCounts[5 - index], sum)"
-            :rate="6 - index"
-            :rate-selected="rateSelected"
-            :key="20 - index"
-          />
+          <PercentBar @onFilter="applyFilter" :percentage="calcPercent(ratesCounts[5 - index], calcSum)" :rate="6 - index"
+            :rate-selected="rateSelected" :key="20 - index" />
         </div>
       </div>
     </div>

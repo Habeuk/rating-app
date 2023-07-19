@@ -5,24 +5,15 @@
 @use './count-bar.scss';
 @use './comments.scss';
 
-body {
-    background-color: #f0f0f0;
-}
 
 #app {
-    background-color: white;
-    display: block;
-    min-height: 100vh;
     margin: 0px auto;
-    width: 30rem;
-    padding: 0 15px;
     color: black;
-    position: absolute;
-    right: 0;
 }
 
 .action-btn {
     cursor: pointer;
+
     &:hover {
         color: $font-color-primary;
     }
@@ -31,7 +22,7 @@ body {
 .comments-widget {
     color: $font-color-primary;
 
-    & > * {
+    &>* {
         padding-inline: $default-inline-padding;
     }
 
