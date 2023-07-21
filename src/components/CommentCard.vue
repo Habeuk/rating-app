@@ -12,35 +12,46 @@ export default {
         created_at: Number,
         likes: Number,
         dislikes: Number,
-        adminPictureLink: String,
-        adminName: String,
         title: String,
         state: Boolean,
+        adminPictureLink: String,
+        adminName: String,
         adminReply: Object,
         adminReplyDate: Number,
+        reponse: String
     },
-    setup(props) {
+    emits: ["likeAction", "dislikeAction"],
+    setup(props, { emit }) {
         const stateText = {
             verified: "Acheteur vérifié",
             not: "Acheteur",
         };
+        const liked = ref(false);
+        const disliked = ref(false);
         const showMediaLink = ref(false);
         const shareLabel = "Partager";
-        let currentUrl = window.location.href.replaceAll("/", "%2F").replaceAll(":", "%3AF");
+        let currentUrl = encodeURI(window.location.href);
         let shareLinks = [
             {
                 label: "Facebook",
                 link:
-                    "https://www.facebook.com/sharer/sharer.php?u=" +
-                    currentUrl +
-                    "&amp;src=sdkpreparse",
+                    "https://www.facebook.com/sharer/sharer.php?u=" + currentUrl,
             },
             {
                 label: "Twitter",
-                link: "https://twitter.com/intent/tweet?text=visit%20this%20&url=" + currentUrl,
+                link: "https://twitter.com/intent/tweet?text=" + encodeURI(props.description + "\n") + currentUrl,
             },
         ];
-
+        const actionLike = (id) => {
+            const variation = (liked.value) ? -1 : 1;
+            liked.value = !liked.value;
+            emit("likeAction", { id: id, variation: variation });
+        };
+        const actionDislike = (id) => {
+            const variation = (disliked.value) ? -1 : 1;
+            disliked.value = !disliked.value;
+            emit("dislikeAction", { id: id, variation: variation });
+        }
         let popupLink = (link) => {
             window.open(link, "popup", "width=600,height=600");
             return false;
@@ -57,8 +68,12 @@ export default {
             shareLinks,
             shareLabel,
             showMediaLink,
+            liked,
+            disliked,
             getFormatedDate,
             popupLink,
+            actionLike,
+            actionDislike
         };
     },
     components: { StarsRate },
@@ -91,7 +106,7 @@ export default {
                 </div>
                 <div class="clear-fix"></div>
                 <div class="comments-rate">
-                    <StarsRate :stars-number="note" />
+                    <StarsRate :percentage="note * 20" />
                 </div>
             </div>
         </div>
@@ -146,7 +161,7 @@ export default {
                 <div class="reaction">
                     <div class="comment-date">{{ getFormatedDate(created_at) }}</div>
                     <div class="comment-vote" role="group">
-                        <div class="up-vote vote">
+                        <div @click="actionLike(id)" class="up-vote vote">
                             <span class="up-vote-icon vote-icon"><svg fill="currentColor" width="800" height="800"
                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -154,7 +169,7 @@ export default {
                                 </svg></span>
                         </div>
                         <span class="up-vote-sum vote-count">{{ likes }}</span>
-                        <div class="down-vote vote">
+                        <div @click="actionDislike(id)" class="down-vote vote">
                             <span class="down-vote-icon vote-icon"><svg width="800" height="800" viewBox="0 0 24 24"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -168,7 +183,7 @@ export default {
             </div>
         </div>
 
-        <div v-if="adminReply.content.length" class="admin-reply">
+        <div v-if="reponse" class="admin-reply">
             <div class="content">
                 <div class="comment-header">
                     <span class="user-profil-icon">
@@ -185,21 +200,21 @@ export default {
                             </svg>
                         </span>
                     </span>
-                    <div class="header-elements">
-                        <span class="user-profil-name">{{ adminReply.name }}</span>
-                    </div>
+                    <!-- <div class="header-elements">
+                        <span class="user-profil-name">Nutribe</span>
+                    </div> -->
                 </div>
                 <div>
                     <div></div>
                     <div class="comment-main reply-content">
-                        {{ adminReply.content }}
+                        {{ reponse }}
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <div class="comment-footer">
                         <span class="comment-date">{{ getFormatedDate(adminReply.date) }}</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

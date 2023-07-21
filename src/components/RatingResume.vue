@@ -69,13 +69,13 @@ export default {
   <div class="resume-container">
     <div class="comments-review">
       <span>
-        <StarsRate class="stars-review" :stars-number="5" />
+        <StarsRate class="stars-review" :percentage="100" />
         <span class="review-label">{{ calcSum + " Avis" }}</span>
       </span>
     </div>
     <div class="comments-resume">
       <div class="comments-resume-stars">
-        <StarsRate v-for="index in 5" :key="6 - index" :stars-number="6 - index" class="stars-set" />
+        <StarsRate v-for="index in 5" :key="6 - index" :percentage="20 * (6 - index)" class="stars-set" />
       </div>
       <div class="comments-resume-counts">
         <span class="resume-count" v-for="index in 5" :key="6 - index">({{ ratesCounts[5 - index] }})</span>

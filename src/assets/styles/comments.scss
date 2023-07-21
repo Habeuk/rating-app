@@ -185,10 +185,20 @@
                 float: left;
                 margin-left: 10px;
 
-                .vote-icon svg {
-                    width: 17px;
-                    height: 17px;
+                .vote-icon {
+                    cursor: pointer;
                     color: $font-color-secondary;
+
+                    transition: color 150ms ease;
+
+                    &:hover {
+                        color: $font-color-primary;
+                    }
+
+                    svg {
+                        width: 17px;
+                        height: 17px;
+                    }
                 }
             }
 

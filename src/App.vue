@@ -40,6 +40,12 @@ const updateFilter = (newFilter) => {
 const changePage = (page) => {
   store.dispatch("loadData", { page });
 }
+const likeComment = (payload) => {
+  store.dispatch("likeComment", payload);
+}
+const dislikeComment = (payload) => {
+  store.dispatch("dislikeComment", payload);
+}
 </script>
 
 <template>
@@ -53,7 +59,8 @@ const changePage = (page) => {
       <span>{{ commentsTitle }}</span>
     </div>
     <div class="comments-content">
-      <CommentCard v-for="element in getComments" v-bind="element" :key="element.id" />
+      <CommentCard @likeAction="likeComment" @dislikeAction="dislikeComment" v-for="element in getComments"
+        v-bind="element" :key="element.id" />
       <CommentPaginator v-if="paginate" v-bind="getPaginator" @changePage="changePage" />
     </div>
   </div>

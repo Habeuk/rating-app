@@ -7,7 +7,9 @@
     "build": "vite build --debug",
     "preview": "vite preview",
     "Dev": "vite build --watch --mode development  --outDir files",
+    "build-stars": "vite build --watch --mode development  --outDir StarsApp -c vite-stars.config.js",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "help": "vite build --help",
     "format": "prettier --write src/"
   },
   "dependencies": {

@@ -31,10 +31,13 @@ export default new Vuex.Store({
                         date: null,
                         content: "",
                     },
+                    reponse: "",
                 }
             }
             state.comments.forEach(element => {
-                comments.push({ ...templateResponse(), ...element })
+                const temp = { ...templateResponse(), ...element };
+                console.log(temp);
+                comments.push(temp)
             })
             return comments;
         },
@@ -72,6 +75,13 @@ export default new Vuex.Store({
                 state.rateSelected = payload.note
             if (payload.page)
                 state.paginator.currentPage = payload.page
+        },
+        UPDATE_LIKES(state, payload) {
+            console.log(payload);
+            state.comments[payload.index].likes += payload.variation;
+        },
+        UPDATE_DISLIKES(state, payload) {
+            state.comments[payload.index].dislikes += payload.variation;
         }
     },
     actions: {
@@ -103,10 +113,43 @@ export default new Vuex.Store({
                         commit("SET_DATAS", response.data);
                 })
                 .catch((err) => {
-                    console.log('something went wrong :', err)
+                    console.log('something went wrong :', err);
                 })
                 ;
+        },
+        likeComment({ commit, state }, payload) {
+            const index = state.comments.findIndex((element) =>
+                element.id == payload.id);
+            let url = "/shopify/like-review.php?id=" + payload.id;
+            if (payload.variation == -1) {
+                url += "&reset=1";
+            }
+            console.log(url);
+            axios.get(url)
+                .then((response) => {
+                    if (response.status == 200)
+                        commit("UPDATE_LIKES", { ...payload, index });
+                })
+                .catch((err) => {
+                    console.log('something went wrong :', err);
+                })
+        },
+        dislikeComment({ commit, state }, payload) {
+            const index = state.comments.findIndex((element) => element.id == payload.id);
+            let url = "/shopify/dislike-review.php?id=" + payload.id;
+            if (payload.variation == -1)
+                url += "&reset=1";
+            console.log(url);
+            axios.get(url)
+                .then((response) => {
+                    if (response.status == 200)
+                        commit("UPDATE_DISLIKES", { ...payload, index });
+                })
+                .catch((err) => {
+                    console.log('something went wrong :', err);
+                })
         }
+
     },
     modules: {},
 });
