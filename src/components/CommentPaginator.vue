@@ -11,33 +11,34 @@ export default {
   setup(props, { emit }) {
     const store = useStore();
     const pagesNumber = Math.ceil(store.state.commentsNumber / props.commentsPerPages);
+    //**************refs******************//
     const finalIndexNbr = ref(
       props.indexPrinted % 2 ? props.indexPrinted - 1 : props.indexPrinted
     );
-    const firstIndex = ref(1);
-    const lastIndex = ref(0);
+    //*************computed***************//
     const getCurrentPage = computed(() => {
       return props.currentPage;
     })
 
-    if (props.currentPage == pagesNumber) {
-      firstIndex.value = 1 + pagesNumber - props.indexPrinted;
-    } else {
-      firstIndex.value = props.currentPage - Math.floor(finalIndexNbr.value / 2);
-    }
-    lastIndex.value = firstIndex.value + finalIndexNbr.value;
+    const getIndexes = computed(() => {
+      let firstIndex = 1;
+      let lastIndex = 0;
+      if (props.currentPage == pagesNumber) {
+        firstIndex = 1 + pagesNumber - props.indexPrinted;
+      } else {
+        firstIndex = props.currentPage - Math.floor(finalIndexNbr.value / 2);
+      }
+      lastIndex = firstIndex + finalIndexNbr.value;
 
-    if (firstIndex.value < 1) {
-      lastIndex.value += 1 - firstIndex.value;
-    }
-    if (lastIndex.value > pagesNumber) {
-      firstIndex.value -= lastIndex.value - pagesNumber;
-    }
-    lastIndex.value = lastIndex.value > pagesNumber ? pagesNumber : lastIndex.value;
-    firstIndex.value = firstIndex.value < 1 ? 1 : firstIndex.value;
-
-    const getPageCount = computed(() => {
-      return lastIndex.value - firstIndex.value + 1;
+      if (firstIndex < 1) {
+        lastIndex += 1 - firstIndex;
+      }
+      if (lastIndex > pagesNumber) {
+        firstIndex -= lastIndex - pagesNumber;
+      }
+      lastIndex = lastIndex > pagesNumber ? pagesNumber : lastIndex;
+      firstIndex = firstIndex < 1 ? 1 : firstIndex;
+      return { first: firstIndex, last: lastIndex, count: lastIndex - firstIndex + 1 };
     });
     const getPageNumber = computed(() => {
       return Math.ceil(store.state.commentsNumber / props.commentsPerPages);
@@ -49,9 +50,8 @@ export default {
     }
 
     return {
-      firstIndex,
+      getIndexes,
       CP: props.currentPage,
-      getPageCount,
       getPageNumber,
       finalIndexNbr,
       getCurrentPage,
@@ -72,9 +72,9 @@ export default {
             stroke-linejoin="round" />
         </svg>
       </a>
-      <a v-for="range in getPageCount" :key="range" @click="changePage(firstIndex + range - 1, $event)" href="#"
-        class="menu-item go-to" :class="{ active: getCurrentPage == firstIndex + range - 1 }">
-        {{ firstIndex + range - 1 }}
+      <a v-for="range in getIndexes.count" :key="range" @click="changePage(getIndexes.first + range - 1, $event)" href="#"
+        class="menu-item go-to" :class="{ active: getCurrentPage == getIndexes.first + range - 1 }">
+        {{ getIndexes.first + range - 1 }}
       </a>
       <a @click="changePage(getCurrentPage + 1, $event)" class="next-comments puce go-to"
         :class="{ disabled: getCurrentPage >= getPageNumber }" href="#"><svg width="800" height="800" viewBox="0 0 48 48"
