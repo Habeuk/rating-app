@@ -15,17 +15,12 @@ export default {
     },
   },
   setup(props) {
-    if (props.id) {
-      console.log("true");
-    }
-    console.log("hello: ", props.id);
     const activeStarsClass = "comment-icon-star";
     const emptyStarsClass = "comment-icon-empty-star";
     const starsNumber = ref(Math.floor(props.percentage / 20));
     const halfPercent = 5 * (props.percentage % 20) + '%'
     let stars = Array(5);
     const id = props.id ? 'linear-gradient-' + props.id : "linear-gradient";
-    console.log("id: ", id);
     let halfStar = (
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -48,10 +43,8 @@ export default {
     for (let index = 0; index < stars.length; index++) {
       stars[index] = index < starsNumber.value ? 1 : 0;
     }
-    console.log(halfPercent != "0%");
     if (halfPercent != "0%")
       stars[starsNumber.value] = 2;
-    console.log(stars);
     let htmlStars = stars.map((element) => {
       return h(
         "span",

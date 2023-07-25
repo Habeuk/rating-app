@@ -12,7 +12,6 @@ element.forEach(element => {
     axios.get(url)
         .then((response) => {
             if (response.status == 200) {
-                console.log("product: " + product_handler + " percentage: " + response.data.minify.mean);
                 createApp(StarsRate, {
                     percentage: response.data.minify.mean,
                     label: response.data.minify.count + " Avis",
@@ -28,6 +27,5 @@ element.forEach(element => {
                 label: "0 Avis",
             }).mount(element);
         })
-    console.log(count);
     count += 1;
 });

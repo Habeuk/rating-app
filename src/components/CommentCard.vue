@@ -112,8 +112,7 @@ export default {
         </div>
         <div class="comment-main">
             <div class="comment-title">{{ title }}</div>
-            <div class="content-content">
-                {{ description }}
+            <div class="content-content" v-html="description">
             </div>
         </div>
         <div class="comment-footer">

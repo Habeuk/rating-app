@@ -36,7 +36,6 @@ export default new Vuex.Store({
             }
             state.comments.forEach(element => {
                 const temp = { ...templateResponse(), ...element };
-                console.log(temp);
                 comments.push(temp)
             })
             return comments;
@@ -77,7 +76,6 @@ export default new Vuex.Store({
                 state.paginator.currentPage = payload.page
         },
         UPDATE_LIKES(state, payload) {
-            console.log(payload);
             state.comments[payload.index].likes += payload.variation;
         },
         UPDATE_DISLIKES(state, payload) {
@@ -124,7 +122,6 @@ export default new Vuex.Store({
             if (payload.variation == -1) {
                 url += "&reset=1";
             }
-            console.log(url);
             axios.get(url)
                 .then((response) => {
                     if (response.status == 200)
@@ -139,7 +136,6 @@ export default new Vuex.Store({
             let url = "/shopify/dislike-review.php?id=" + payload.id;
             if (payload.variation == -1)
                 url += "&reset=1";
-            console.log(url);
             axios.get(url)
                 .then((response) => {
                     if (response.status == 200)
