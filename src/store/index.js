@@ -1,5 +1,7 @@
 import Vuex from "vuex";
 import axios from "../axios-configure";
+import { paginator as defaultPaginator, resetActionVar, getRequestPath, likePath, dislikePath } from "../general-configs";
+
 export default new Vuex.Store({
     state: {
         product_handler: "",
@@ -7,11 +9,7 @@ export default new Vuex.Store({
         comments: [],
         summary: [],
         commentsNumber: 0,
-        paginator: {
-            currentPage: 1,
-            commentsPerPages: 10,
-            indexPrinted: 3,
-        },
+        paginator: defaultPaginator,
         note: 0
     },
     getters: {
@@ -95,7 +93,7 @@ export default new Vuex.Store({
          * @param {*} payload 
          */
         loadData({ commit, state }, payload) {
-            let url = "/shopify/get-reviews.php?";
+            let url = getRequestPath;
             url += "product_handler=" + state.product_handler;
             if (payload.note || payload.note == 0)
                 commit("UPDATE_FILTER", { note: payload.note })
@@ -118,9 +116,9 @@ export default new Vuex.Store({
         likeComment({ commit, state }, payload) {
             const index = state.comments.findIndex((element) =>
                 element.id == payload.id);
-            let url = "/shopify/like-review.php?id=" + payload.id;
+            let url = likePath + payload.id;
             if (payload.variation == -1) {
-                url += "&reset=1";
+                url += resetActionVar;
             }
             axios.get(url)
                 .then((response) => {
@@ -133,9 +131,9 @@ export default new Vuex.Store({
         },
         dislikeComment({ commit, state }, payload) {
             const index = state.comments.findIndex((element) => element.id == payload.id);
-            let url = "/shopify/dislike-review.php?id=" + payload.id;
+            let url = dislikePath + payload.id;
             if (payload.variation == -1)
-                url += "&reset=1";
+                url += resetActionVar;
             axios.get(url)
                 .then((response) => {
                     if (response.status == 200)
