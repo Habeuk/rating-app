@@ -94,7 +94,7 @@ export default new Vuex.Store({
          */
         loadData({ commit, state }, payload) {
             let url = getRequestPath;
-            url += "product_handler=" + state.product_handler;
+            url += "handler=" + state.product_handler;
             if (payload.note || payload.note == 0)
                 commit("UPDATE_FILTER", { note: payload.note })
             if (state.rateSelected)

@@ -1,5 +1,5 @@
 <script lang="jsx">
-import { h, handleError, ref } from "vue";
+import { h, ref } from "vue";
 export default {
   props: {
     id: Number,
