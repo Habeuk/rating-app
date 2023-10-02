@@ -74,10 +74,14 @@ export default new Vuex.Store({
                 state.paginator.currentPage = payload.page
         },
         UPDATE_LIKES(state, payload) {
-            state.comments[payload.index].likes += payload.variation;
+            if (payload.variation == 1 || state.comments[payload.index].likes) {
+                state.comments[payload.index].likes += payload.variation;
+            }
         },
         UPDATE_DISLIKES(state, payload) {
-            state.comments[payload.index].dislikes += payload.variation;
+            if (payload.variation == 1 || state.comments[payload.index].dislikes) {
+                state.comments[payload.index].dislikes += payload.variation;
+            }
         }
     },
     actions: {
