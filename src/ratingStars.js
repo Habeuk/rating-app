@@ -7,7 +7,7 @@ const element = Array.prototype.slice.call(document.getElementsByClassName("rati
 let count = 1;
 element.forEach(element => {
     const product_handler = element.getAttribute("data-product-handler");
-    const url = "/shopify/get-reviews.php?minify=1&" + "product_handler=" + product_handler;
+    const url = "/reviews/" + product_handler;
     const temp = count;
     axios.get(url)
         .then((response) => {
