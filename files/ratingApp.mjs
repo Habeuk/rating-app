@@ -2269,7 +2269,7 @@ y.AxiosHeaders = k;
 y.formToJSON = (e) => Gt(d.isHTMLForm(e) ? new FormData(e) : e);
 y.HttpStatusCode = Wr;
 y.default = y;
-const Xr = y, Yr = "https://reviews.habeuk.com", Qr = "/api/v1/reviews?", Zr = "/shopify/like-review.php?id=", es = "/shopify/dislike-review.php?id=", at = "&reset=1", Kt = "app", ts = "data-product-handler", ns = {
+const Xr = y, Yr = "https://reviews.habeuk.com", Qr = "/api/v1/reviews?", Zr = "/like/", es = "/dislike/", at = "?reset=1", Kt = "app", ts = "data-product-handler", ns = {
   currentPage: 1,
   commentsPerPages: 10,
   indexPrinted: 5
