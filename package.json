@@ -6,8 +6,10 @@
     "dev": "vite",
     "build": "vite build --debug",
     "preview": "vite preview",
-    "Dev": "vite build --watch --mode development  --outDir files",
-    "build-stars": "vite build --watch --mode development  --outDir StarsApp -c vite-stars.config.js",
+    "build-reviews-dev": "vite build --watch --mode development  --outDir files -c vite-reviews.config.js",
+    "build-reviews-prod": "vite build --mode production  --outDir files -c vite-reviews.config.js",
+    "build-stars-dev": "vite build --watch --mode development  --outDir StarsApp -c vite-stars.config.js",
+    "build-stars-prod": "vite build --mode production  --outDir StarsApp -c vite-stars.config.js",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "help": "vite build --help",
     "format": "prettier --write src/"
@@ -15,6 +17,7 @@
   "dependencies": {
     "@stephane888/wbu-atomique": "file:../wbu-atomique",
     "axios": "^1.4.0",
+    "drupal-vuejs": "file:../drupal-vuejs",
     "vue": "^3.3.4",
     "vuex": "^4.0.2"
   },

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # rating-app
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -35,9 +33,3 @@ npm run build
 ```sh
 npm run lint
 ```
-
-=======
-
-# rating-app
-
-> > > > > > > d3de5a9c67e18953b776c6cf4a9f20d8dbae2f68
