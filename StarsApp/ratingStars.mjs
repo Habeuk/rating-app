@@ -1461,11 +1461,11 @@ const nn = w, rn = "https://reviews.habeuk.com", sn = nn.create({
 const on = Array.prototype.slice.call(document.getElementsByClassName("rating-app-item"));
 let Ee = 1;
 on.forEach((e) => {
-  const n = "/reviews/" + e.getAttribute("data-product-handler"), r = Ee;
+  const n = "/api/v1/reviews/" + e.getAttribute("data-product-handler"), r = Ee;
   sn.get(n).then((s) => {
     s.status == 200 && ie(we, {
-      percentage: s.data.minify.mean,
-      label: s.data.minify.count + " Avis",
+      percentage: s.data.mean,
+      label: s.data.count + " Avis",
       id: r
     }).mount(e);
   }).catch((s) => {

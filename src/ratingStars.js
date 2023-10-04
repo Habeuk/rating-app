@@ -7,14 +7,14 @@ const element = Array.prototype.slice.call(document.getElementsByClassName("rati
 let count = 1;
 element.forEach(element => {
     const product_handler = element.getAttribute("data-product-handler");
-    const url = "/reviews/" + product_handler;
+    const url = "/api/v1/reviews/" + product_handler;
     const temp = count;
     axios.get(url)
         .then((response) => {
             if (response.status == 200) {
                 createApp(StarsRate, {
-                    percentage: response.data.minify.mean,
-                    label: response.data.minify.count + " Avis",
+                    percentage: response.data.mean,
+                    label: response.data.count + " Avis",
                     id: temp
                 }).mount(element);
             }
