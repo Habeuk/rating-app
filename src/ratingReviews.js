@@ -3,12 +3,21 @@ import './assets/styles/main.scss'
 import { createApp } from 'vue'
 import store from './store'
 import App from './App.vue'
-import { appIdReviews, dataSelector } from './general-configs'
+import {
+  appIdReviews,
+  dataEntityIdSelector,
+  dataEntityTypeIdSelector,
+  dataUrlGetReviews
+} from './general-configs'
 
 const application = document.getElementById(appIdReviews)
 
-const product_handler = application.getAttribute(dataSelector)
+const product_handler = application.getAttribute(dataEntityIdSelector)
+const entity_type_id = application.getAttribute(dataEntityTypeIdSelector)
+const urlGetReviews = application.getAttribute(dataUrlGetReviews)
 store.commit('INIT_HANDLER', product_handler)
+store.commit('SET_ENTITY_TYPE_ID', entity_type_id)
+store.commit('SET_URL_GET_REVIEWS', urlGetReviews)
 store.dispatch('loadData', {})
 
 const app = createApp(App)

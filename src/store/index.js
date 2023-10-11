@@ -3,7 +3,6 @@ import axios from '../rootConfig'
 import {
   paginator as defaultPaginator,
   resetActionVar,
-  getRequestPath,
   likePath,
   dislikePath
 } from '../general-configs'
@@ -14,9 +13,12 @@ export default new Vuex.Store({
     rateSelected: 0,
     comments: [],
     summary: [],
+    configs: {},
     commentsNumber: 0,
     paginator: defaultPaginator,
-    note: 0
+    note: 0,
+    entity_type_id: null,
+    url_get_reviews: null
   },
   getters: {
     getFormatedComments(state) {
@@ -25,7 +27,9 @@ export default new Vuex.Store({
         return {
           id: 0,
           name: 'Lelong f.',
-          state: true,
+          status_user_display: state.configs.review.status_user_display,
+          status_user_text: state.configs.review.status_user_text,
+          status_user_badge: state.configs.review.status_user_badge,
           rate: 2,
           title: ' Parfait ',
           content: 'Nickel, rentrée en cetose rapidement ',
@@ -52,6 +56,12 @@ export default new Vuex.Store({
     INIT_HANDLER(state, handler) {
       state.product_handler = handler
     },
+    SET_ENTITY_TYPE_ID(state, entity_type_id) {
+      state.entity_type_id = entity_type_id
+    },
+    SET_URL_GET_REVIEWS(state, url) {
+      state.url_get_reviews = url
+    },
     SET_RATE_SELECTED(state, payload) {
       state.rateSelected = payload
     },
@@ -59,7 +69,8 @@ export default new Vuex.Store({
       state.commentsNumber = payload
     },
     SET_DATAS(state, payload) {
-      state.comments = payload.review
+      state.comments = payload.reviews
+      state.configs = payload.configs
       state.summary = Object.values(payload.summary)
         .reverse()
         .map((element) => {
@@ -96,8 +107,7 @@ export default new Vuex.Store({
      * @param {*} payload
      */
     loadData({ commit, state }, payload) {
-      let url = getRequestPath
-      url += 'product_handler=' + state.product_handler
+      let url = state.url_get_reviews
       if (payload.note || payload.note == 0) commit('UPDATE_FILTER', { note: payload.note })
       if (state.rateSelected) url += '&note=' + payload.note
       if (payload.page) {

@@ -13,7 +13,9 @@ export default {
     likes: Number,
     dislikes: Number,
     title: String,
-    state: Boolean,
+    status_user_display: Boolean,
+    status_user_text: String,
+    status_user_badge: Boolean,
     adminPictureLink: String,
     adminName: String,
     adminReply: Object,
@@ -22,10 +24,6 @@ export default {
   },
   emits: ['likeAction', 'dislikeAction'],
   setup(props, { emit }) {
-    const stateText = {
-      verified: 'Acheteur vérifié',
-      not: 'Acheteur'
-    }
     const liked = ref(false)
     const disliked = ref(false)
     const showMediaLink = ref(false)
@@ -67,7 +65,6 @@ export default {
     }
     return {
       ...props,
-      stateText,
       shareLinks,
       shareLabel,
       showMediaLink,
@@ -90,7 +87,7 @@ export default {
         <span class="user-profil-letter">
           {{ name[0] }}
         </span>
-        <span v-if="state" class="verified-icon">
+        <span v-if="status_user_badge" class="verified-icon">
           <svg
             fill="currentColor"
             width="800"
@@ -108,9 +105,9 @@ export default {
         <span class="user-profil-name">
           {{ name }}
         </span>
-        <div class="user-verified-state">
+        <div v-if="status_user_display" class="user-verified-state">
           <span>
-            {{ state ? stateText.verified : stateText.not }}
+            {{ status_user_text }}
           </span>
         </div>
         <div class="clear-fix"></div>
