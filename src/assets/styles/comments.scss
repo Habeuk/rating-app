@@ -2,208 +2,208 @@
 @use './admin-reply.scss';
 
 .single-comment {
-    padding-top: 25px;
-    padding-bottom: 22px;
-    border-top: 1px solid $border-default-color;
+  padding-top: 25px;
+  padding-bottom: 22px;
+  border-top: 1px solid $border-default-color;
 
-    .comment-header {
-        position: relative;
+  .comment-header {
+    position: relative;
 
-        .user-profil-icon {
-            background-color: #8b8686;
-            width: 45px;
-            height: 45px;
+    .user-profil-icon {
+      background-color: #8b8686;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: block;
+      color: white;
+      font-size: 20px;
+      float: left;
+      position: relative;
+      margin-right: 10px;
+
+      .user-profil-letter {
+        position: absolute;
+        display: block;
+        top: 12px;
+        line-height: 20px;
+        width: 100%;
+        text-align: center;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .verified-icon {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        bottom: 3px;
+        right: -4px;
+        border-radius: 50%;
+        background-color: white;
+
+        svg {
+          display: block;
+          width: 16px;
+          height: 16px;
+          color: $color-third;
+        }
+      }
+    }
+
+    .header-elements {
+      overflow: hidden;
+
+      .user-profil-name,
+      .user-verified-state {
+        float: left;
+        font-size: $default-font-size - 2;
+      }
+
+      .user-profil-name {
+        font-weight: bold;
+        margin: 0 5px 0 0;
+      }
+
+      .user-verified-state {
+        color: #6a6c77;
+
+        &::after {
+          clear: both;
+        }
+      }
+
+      .comments-rate {
+        //display: inline-block;
+        height: 17px;
+        margin: 7px 10px 0 0;
+        display: flex;
+        svg {
+          width: 17px;
+          height: 17px;
+        }
+      }
+    }
+  }
+
+  .comment-main {
+    font-size: $default-font-size;
+    line-height: 17px;
+
+    .comment-title {
+      display: inline-block;
+      padding-bottom: 5px;
+      font-weight: bold;
+    }
+
+    &.reply-content {
+      margin: 10px 0 15px 0;
+    }
+  }
+
+  .comment-footer {
+    .footer-action {
+      display: block;
+      line-height: 16px;
+      font-size: $default-font-size - 1;
+      color: $font-color-secondary;
+      transition: color 300ms ease-in-out;
+
+      .primary-action {
+        height: 16px;
+        margin-block: 15px;
+      }
+
+      .reaction {
+        height: 16px;
+      }
+
+      .separator {
+        &::before {
+          content: '|';
+          font-size: 12px;
+          margin-inline: 6px;
+        }
+      }
+
+      .open-actions {
+        &:hover {
+          color: $font-color-primary;
+        }
+
+        float: left;
+        cursor: pointer;
+
+        .share-icon {
+          float: left;
+          margin-right: 5px;
+
+          svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+
+      .list-item {
+        padding-inline: 2px;
+
+        .action-separator {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+
+          &::before {
+            content: '';
+            width: 2px;
+            height: 2px;
             border-radius: 50%;
-            display: block;
-            color: white;
-            font-size: 20px;
-            float: left;
-            position: relative;
-            margin-right: 10px;
-
-            .user-profil-letter {
-                position: absolute;
-                display: block;
-                top: 12px;
-                line-height: 20px;
-                width: 100%;
-                text-align: center;
-            }
-
-            img {
-                max-width: 100%;
-                max-height: 100%;
-            }
-
-            .verified-icon {
-                width: 16px;
-                height: 16px;
-                position: absolute;
-                bottom: 3px;
-                right: -4px;
-                border-radius: 50%;
-                background-color: white;
-
-                svg {
-                    display: block;
-                    width: 16px;
-                    height: 16px;
-                    color: $color-third;
-                }
-            }
-        }
-
-        .header-elements {
-            overflow: hidden;
-
-            .user-profil-name,
-            .user-verified-state {
-                float: left;
-                font-size: $default-font-size - 2;
-            }
-
-            .user-profil-name {
-                font-weight: bold;
-                margin: 0 5px 0 0;
-            }
-
-            .user-verified-state {
-                color: #6a6c77;
-
-                &::after {
-                    clear: both;
-                }
-            }
-
-            .comments-rate {
-                display: inline-block;
-                height: 17px;
-                margin: 7px 10px 0 0;
-
-                svg {
-                    width: 17px;
-                    height: 17px;
-                }
-            }
-        }
-    }
-
-    .comment-main {
-        font-size: $default-font-size;
-        line-height: 17px;
-
-        .comment-title {
             display: inline-block;
-            padding-bottom: 5px;
-            font-weight: bold;
+            margin-block: 3px;
+            margin-left: 6px;
+            background-color: $font-color-secondary;
+          }
         }
-
-        &.reply-content {
-            margin: 10px 0 15px 0;
-        }
+      }
     }
 
-    .comment-footer {
-        .footer-action {
-            display: block;
-            line-height: 16px;
-            font-size: $default-font-size - 1;
-            color: $font-color-secondary;
-            transition: color 300ms ease-in-out;
-
-            .primary-action {
-                height: 16px;
-                margin-block: 15px;
-            }
-
-            .reaction {
-                height: 16px;
-            }
-
-            .separator {
-                &::before {
-                    content: '|';
-                    font-size: 12px;
-                    margin-inline: 6px;
-                }
-            }
-
-            .open-actions {
-                &:hover {
-                    color: $font-color-primary;
-                }
-
-                float: left;
-                cursor: pointer;
-
-                .share-icon {
-                    float: left;
-                    margin-right: 5px;
-
-                    svg {
-                        display: block;
-                        width: 16px;
-                        height: 16px;
-                    }
-                }
-            }
-
-            .list-item {
-                padding-inline: 2px;
-
-                .action-separator {
-                    display: inline-block;
-                    width: 12px;
-                    height: 12px;
-
-                    &::before {
-                        content: '';
-                        width: 2px;
-                        height: 2px;
-                        border-radius: 50%;
-                        display: inline-block;
-                        margin-block: 3px;
-                        margin-left: 6px;
-                        background-color: $font-color-secondary;
-                    }
-                }
-            }
-        }
-
-        .comment-date {
-            font-size: $default-font-size - 1;
-            color: $font-color-secondary;
-            float: left;
-        }
-
-        .comment-vote {
-            float: right;
-
-            .vote {
-                float: left;
-                margin-left: 10px;
-
-                .vote-icon {
-                    cursor: pointer;
-                    color: $font-color-secondary;
-
-                    transition: color 150ms ease;
-
-                    &:hover {
-                        color: $font-color-primary;
-                    }
-
-                    svg {
-                        width: 17px;
-                        height: 17px;
-                    }
-                }
-            }
-
-            .vote-count {
-                float: left;
-                margin-top: 1px;
-            }
-        }
+    .comment-date {
+      font-size: $default-font-size - 1;
+      color: $font-color-secondary;
+      float: left;
     }
+
+    .comment-vote {
+      float: right;
+
+      .vote {
+        float: left;
+        margin-left: 10px;
+
+        .vote-icon {
+          cursor: pointer;
+          color: $font-color-secondary;
+
+          transition: color 150ms ease;
+
+          &:hover {
+            color: $font-color-primary;
+          }
+
+          svg {
+            width: 17px;
+            height: 17px;
+          }
+        }
+      }
+
+      .vote-count {
+        float: left;
+        margin-top: 1px;
+      }
+    }
+  }
 }

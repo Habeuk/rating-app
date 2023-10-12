@@ -1,34 +1,34 @@
 @use './variables.scss' as *;
 
-
 .rating-app-item {
-    line-height: 18.5px;
-    cursor: pointer;
+  line-height: 18.5px;
+  cursor: pointer;
 }
 
 .stars-set {
-    display: block;
-    line-height: 16px;
-    height: 16px;
+  display: block;
+  line-height: 16px;
+  height: 16px;
 }
 
 .comment-stars {
-    display: block;
-    float: left;
-    height: 16px;
+  // display: block;
+  // float: left;
+  display: flex;
+  //height: 16px;
 
-    &.comment-icon-star {
-        color: $color-third;
-        stop-color: currentColor;
-    }
+  &.comment-icon-star {
+    color: $color-third;
+    stop-color: currentColor;
+  }
 
-    &.comment-icon-empty-star {
-        color: #87d9c240;
-        stop-color: currentColor;
-    }
+  &.comment-icon-empty-star {
+    color: #87d9c240;
+    stop-color: currentColor;
+  }
 
-    svg {
-        width: 16px;
-        height: 16px;
-    }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }

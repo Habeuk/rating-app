@@ -112,7 +112,7 @@ export default {
         </div>
         <div class="clear-fix"></div>
         <div class="comments-rate">
-          <StarsRate :percentage="note * 20" />
+          <StarsRate :percentage="note * 20" class="d-flex" />
         </div>
       </div>
     </div>

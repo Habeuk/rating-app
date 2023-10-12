@@ -1,46 +1,46 @@
 @use './variables.scss' as *;
 
 .resume-container {
-    padding-inline: $default-inline-padding;
+  padding-inline: $default-inline-padding;
 
-    .comments-review {
-        .review-label {
-            font-size: $default-font-size;
-            color: $font-color-secondary;
-        }
+  .comments-review {
+    // .review-label {
+    //   //font-size: $default-font-size;
+    //   // color: $font-color-secondary;
+    // }
 
-        .stars-review {
-            padding-right: 10px;
-            display: inline-block;
-            height: 16px;
-        }
+    .stars-review {
+      padding-right: 10px;
+      display: inline-block;
+      height: 16px;
     }
+  }
 
+  .comments-resume {
     .comments-resume {
-        .comments-resume {
-            &-stars {
-                float: left;
+      &-stars {
+        float: left;
 
-                .stars-set {
-                    margin: 0px 6px $resume-element-mb 0px;
-                }
-            }
-
-            &-counts {
-                float: left;
-
-                .resume-count {
-                    display: block;
-                    line-height: $resume-height;
-                    font-size: $resume-height - 5;
-                    margin: 0 6px 4px 0;
-                }
-            }
-
-            &-graphs {
-                overflow: hidden;
-                padding-top: 4px;
-            }
+        .stars-set {
+          margin: 0px 6px $resume-element-mb 0px;
         }
+      }
+
+      &-counts {
+        float: left;
+
+        .resume-count {
+          display: block;
+          line-height: $resume-height;
+          font-size: $resume-height - 5;
+          margin: 0 6px 4px 0;
+        }
+      }
+
+      &-graphs {
+        overflow: hidden;
+        padding-top: 4px;
+      }
     }
+  }
 }

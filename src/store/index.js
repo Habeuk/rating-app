@@ -18,7 +18,8 @@ export default new Vuex.Store({
     paginator: defaultPaginator,
     note: 0,
     entity_type_id: null,
-    url_get_reviews: null
+    url_get_reviews: null,
+    comment_type: null
   },
   getters: {
     getFormatedComments(state) {
@@ -68,6 +69,9 @@ export default new Vuex.Store({
     SET_COMMENTS_NUMBER(state, payload) {
       state.commentsNumber = payload
     },
+    SET_COMMENT_TYPE(state, payload) {
+      state.comment_type = payload
+    },
     SET_DATAS(state, payload) {
       state.comments = payload.reviews
       state.configs = payload.configs
@@ -115,7 +119,7 @@ export default new Vuex.Store({
         url += '&page=' + payload.page
       }
       axios
-        .get(url)
+        .dGet(url)
         .then((response) => {
           commit('SET_DATAS', response.data)
         })
@@ -125,14 +129,10 @@ export default new Vuex.Store({
     },
     likeComment({ commit, state }, payload) {
       const index = state.comments.findIndex((element) => element.id == payload.id)
-      let url = likePath + payload.id
-      if (payload.variation == -1) {
-        url += resetActionVar
-      }
+      let url = likePath + '/' + state.comment_type + '/' + payload.id
       axios
-        .get(url)
+        .dPost(url, { value: 1 })
         .then((response) => {
-          alert('à traiter 3')
           if (response.status == 200) commit('UPDATE_LIKES', { ...payload, index })
         })
         .catch((err) => {
@@ -141,12 +141,10 @@ export default new Vuex.Store({
     },
     dislikeComment({ commit, state }, payload) {
       const index = state.comments.findIndex((element) => element.id == payload.id)
-      let url = dislikePath + payload.id
-      if (payload.variation == -1) url += resetActionVar
+      let url = dislikePath + '/' + state.comment_type + '/' + payload.id
       axios
-        .get(url)
+        .dPost(url, { value: -1 })
         .then((response) => {
-          alert('à traiter 4')
           if (response.status == 200) commit('UPDATE_DISLIKES', { ...payload, index })
         })
         .catch((err) => {
