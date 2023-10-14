@@ -1,39 +1,56 @@
 <template>
-  <div class="card flex justify-content-center p-2">
-    <div>
-      <Button type="button" label="Rediger un avis" icon="pi pi-user-edit" />
+  <div class="flex justify-content-center add-comment">
+    <div class="d-none">
+      <Button
+        type="button"
+        label="Rediger un avis"
+        icon="pi pi-user-edit"
+        severity="secondary"
+        text
+      />
     </div>
     <form @submit="onSubmit" class="flex flex-column gap-2">
-      <div class="card flex justify-content-center">
-        <Rating
-          v-model="form.start"
-          :cancel="false"
-          name="comment_start"
-          :class="[errorStart ? 'p-invalid' : '', '']"
+      <div class="fields">
+        <div class="flex justify-content-center">
+          <Rating
+            v-model="form.start"
+            :cancel="false"
+            name="comment_start"
+            :class="[errorStart ? 'p-invalid' : '', 'ratting-big']"
+          />
+          <small class="p-error">{{ errorStart || '&nbsp;' }}</small>
+        </div>
+        <div class="">
+          <label for="comment-decription" class="d-none">Votre avis</label>
+          <Textarea
+            id="comment-decription"
+            v-model="form.comment"
+            :class="[errorMessage ? 'p-invalid' : '', 'w-100']"
+            rows="4"
+            aria-describedby="text-error"
+            placeholder="Partagez votre expérience"
+            name="comment_description"
+          />
+          <small class="p-error">{{ errorMessage || '&nbsp;' }}</small>
+        </div>
+        <div class="mb-4">
+          <label for="comment-titre" class="d-none">Un titre</label>
+          <InputText id="comment-titre" placeholder="Donner un titre" v-model="form.titre" />
+        </div>
+      </div>
+      <div class="d-flex justify-content-end actions">
+        <Button
+          type="button"
+          label="Annuler"
+          icon="pi pi-user-edit"
+          severity="primary"
+          text
+          class="mr-5"
+          outlined
         />
-        <small class="p-error">{{ errorStart || '&nbsp;' }}</small>
+        <Button type="submit" label="Publier" :disabled="submitDisable" />
       </div>
-      <div class="p-float-label mb-4 mt-4">
-        <Textarea
-          id="comment-decription"
-          v-model="form.comment"
-          :class="[errorMessage ? 'p-invalid' : '', 'w-100']"
-          rows="4"
-          aria-describedby="text-error"
-          placeholder="Partagez votre expérience"
-          name="comment_description"
-        />
-        <label for="comment-decription">Votre avis</label>
-        <small class="p-error">{{ errorMessage || '&nbsp;' }}</small>
-      </div>
-      <div class="p-float-label mb-4">
-        <InputText id="comment-titre" placeholder="Donner un titre" v-model="form.titre" />
-        <label for="comment-titre">Un titre</label>
-      </div>
-      <Button type="submit" label="Submit" />
     </form>
-    <pre> form: {{ form }} </pre>
-    <pre> errorMessage : {{ errorMessage }} </pre>
   </div>
 </template>
 
@@ -60,6 +77,8 @@ function validateComment() {
   }
   return true
 }
+
+const submitDisable = ref(true)
 // field: comment description
 const errorStart = ref(null)
 

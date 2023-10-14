@@ -1,0 +1,27 @@
+@use './variables.scss' as *;
+@use '@stephane888/wbu-atomique/scss/_variables.scss' as *;
+.add-comment {
+  padding: $wbu-margin $wbu-margin * 1.5;
+  box-shadow: 0 6px 15px rgb(235 235 235 / 52%);
+  margin-bottom: $wbu-margin * 2;
+  .fields {
+    margin-bottom: $wbu-margin * 1.5;
+  }
+  .p-button-label {
+    font-weight: 400;
+  }
+  input {
+    width: 100%;
+    max-width: 500px;
+  }
+  .ratting-big {
+    justify-content: center;
+    .p-rating-item {
+      margin-right: $wbu-margin * 0.75;
+    }
+    svg {
+      width: $wbu-margin * 1.5;
+      height: $wbu-margin * 1.5;
+    }
+  }
+}

@@ -16,7 +16,7 @@ export default new Vuex.Store({
     url_get_reviews: null,
     comment_type: null,
     form: {
-      titre: 'RAS',
+      titre: '',
       comment: '',
       start: 0
     }
