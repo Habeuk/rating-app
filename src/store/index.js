@@ -1,11 +1,6 @@
 import Vuex from 'vuex'
 import axios from '../rootConfig'
-import {
-  paginator as defaultPaginator,
-  resetActionVar,
-  likePath,
-  dislikePath
-} from '../general-configs'
+import { paginator as defaultPaginator, likePath, dislikePath } from '../general-configs'
 
 export default new Vuex.Store({
   state: {
@@ -19,7 +14,12 @@ export default new Vuex.Store({
     note: 0,
     entity_type_id: null,
     url_get_reviews: null,
-    comment_type: null
+    comment_type: null,
+    form: {
+      titre: 'RAS',
+      comment: '',
+      start: 0
+    }
   },
   getters: {
     getFormatedComments(state) {

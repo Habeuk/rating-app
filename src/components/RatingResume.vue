@@ -2,6 +2,8 @@
 import { computed, h, ref } from 'vue'
 import StarsRate from './StarsRate.vue'
 import PercentBar from './PercentBar.vue'
+import addComment from './addComment.vue'
+import addComment2 from './addComment2.vue'
 
 export default {
   props: {
@@ -57,12 +59,16 @@ export default {
       applyFilter
     }
   },
-  components: { StarsRate, PercentBar }
+  components: { StarsRate, PercentBar, addComment, addComment2 }
 }
 </script>
 
 <template>
   <div class="resume-container">
+    <div class="container-add-comment">
+      <addComment2></addComment2>
+      <addComment></addComment>
+    </div>
     <div class="comments-review">
       <span class="d-flex align-items-center">
         <StarsRate class="stars-review d-flex" :percentage="100" />

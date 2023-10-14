@@ -3,6 +3,7 @@ import './assets/styles/main.scss'
 import { createApp } from 'vue'
 import store from './store'
 import App from './App.vue'
+import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import {
   appIdReviews,
   dataEntityIdSelector,
@@ -22,7 +23,10 @@ store.commit('SET_ENTITY_TYPE_ID', entity_type_id)
 store.commit('SET_URL_GET_REVIEWS', urlGetReviews)
 store.commit('SET_COMMENT_TYPE', commentType)
 store.dispatch('loadData', {})
-
+import PrimeVue from 'primevue/config'
 const app = createApp(App)
+//
+app.use(PrimeVue, {})
+//
 app.use(store)
 app.mount('#' + appIdReviews)

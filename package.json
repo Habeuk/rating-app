@@ -18,6 +18,8 @@
     "@stephane888/wbu-atomique": "file:../wbu-atomique",
     "axios": "^1.4.0",
     "drupal-vuejs": "file:../drupal-vuejs",
+    "primevue": "^3.36.0",
+    "vee-validate": "^4.11.8",
     "vue": "^3.3.4",
     "vuex": "^4.0.2"
   },

@@ -4,14 +4,14 @@ import StarsRate from './StarsRate.vue'
 
 export default {
   props: {
-    id: Number,
+    id: [Number, String],
     name: String,
     surname: String,
     note: Number,
     description: String,
-    created_at: Number,
-    likes: Number,
-    dislikes: Number,
+    created_at: [Number, String],
+    likes: [Number, String],
+    dislikes: [Number, String],
     title: String,
     status_user_display: Boolean,
     status_user_text: String,
