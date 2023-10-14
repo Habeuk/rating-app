@@ -15,6 +15,8 @@ export default new Vuex.Store({
     entity_type_id: null,
     url_get_reviews: null,
     comment_type: null,
+    urlAddcomment: null,
+    field_name: null,
     form: {
       titre: '',
       comment: '',
@@ -72,6 +74,12 @@ export default new Vuex.Store({
     SET_COMMENT_TYPE(state, payload) {
       state.comment_type = payload
     },
+    SET_URLADDCOMMENT(state, payload) {
+      state.urlAddcomment = payload
+    },
+    SET_FIELD_NAME(state, payload) {
+      state.field_name = payload
+    },
     SET_DATAS(state, payload) {
       state.comments = payload.reviews
       state.configs = payload.configs
@@ -111,13 +119,14 @@ export default new Vuex.Store({
      * @param {*} payload
      */
     loadData({ commit, state }, payload) {
-      let url = state.url_get_reviews
+      let url = state.url_get_reviews + '?limit=' + state.paginator.commentsPerPages
       if (payload.note || payload.note == 0) commit('UPDATE_FILTER', { note: payload.note })
-      if (state.rateSelected) url += '&note=' + payload.note
+      if (state.rateSelected) url += '&note=' + state.rateSelected
       if (payload.page) {
         commit('UPDATE_FILTER', { page: payload.page })
         url += '&page=' + payload.page
       }
+      // console.log('loadData  params : ', payload, '\n rateSelected: ', state.rateSelected)
       axios
         .dGet(url)
         .then((response) => {
@@ -150,6 +159,27 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log('something went wrong :', err)
         })
+    },
+    ValidFormAddComment({ state }) {
+      if (state.form.start > 0 && state.form.comment && state.form.comment.length > 3) return true
+      else return false
+    },
+    addComment({ state, dispatch }) {
+      return new Promise((resolv, reject) => {
+        const ValidForm = dispatch('ValidFormAddComment')
+        ValidForm.then((resp) => {
+          if (resp) {
+            const datas = {
+              comment_type: state.comment_type,
+              field_name: state.field_name,
+              ...state.form
+            }
+            resolv(axios.dPost(state.urlAddcomment, { form: datas }))
+          } else reject('error')
+        }).catch((er) => {
+          reject(er)
+        })
+      })
     }
   },
   modules: {}

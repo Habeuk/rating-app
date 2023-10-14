@@ -4,29 +4,33 @@ import { createApp } from 'vue'
 import store from './store'
 import App from './App.vue'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
-import {
-  appIdReviews,
-  dataEntityIdSelector,
-  dataEntityTypeIdSelector,
-  dataUrlGetReviews,
-  datacommentType
-} from './general-configs'
-console.log('appIdReviews : ', appIdReviews)
-const application = document.getElementById(appIdReviews)
-
-const product_handler = application.getAttribute(dataEntityIdSelector)
-const entity_type_id = application.getAttribute(dataEntityTypeIdSelector)
-const urlGetReviews = application.getAttribute(dataUrlGetReviews)
-const commentType = application.getAttribute(datacommentType)
-store.commit('INIT_HANDLER', product_handler)
-store.commit('SET_ENTITY_TYPE_ID', entity_type_id)
-store.commit('SET_URL_GET_REVIEWS', urlGetReviews)
-store.commit('SET_COMMENT_TYPE', commentType)
-store.dispatch('loadData', {})
+import 'primeicons/primeicons.css'
 import PrimeVue from 'primevue/config'
-const app = createApp(App)
-//
-app.use(PrimeVue, {})
-//
-app.use(store)
-app.mount('#' + appIdReviews)
+
+import { dataUrlGetReviews, urlAddcomment, paginator } from './general-configs'
+;(function (Drupal) {
+  Drupal.behaviors.rating_app = {
+    attach: function (context, settings) {
+      if (settings.rating_app) {
+        const config = settings.rating_app
+        const application = context.getElementById ? context.getElementById(config.id) : null
+        if (application) {
+          paginator.commentsPerPages = config.comments_per_pages
+          store.commit('INIT_HANDLER', config.entity_id)
+          store.commit('SET_ENTITY_TYPE_ID', config.entity_type_id)
+          store.commit('SET_COMMENT_TYPE', config.comment_type)
+          store.commit('SET_FIELD_NAME', config.field_name)
+          store.commit('SET_URL_GET_REVIEWS', application.getAttribute(dataUrlGetReviews))
+          store.commit('SET_URLADDCOMMENT', application.getAttribute(urlAddcomment))
+          store.dispatch('loadData', {})
+          const app = createApp(App)
+          //
+          app.use(PrimeVue, {})
+          //
+          app.use(store)
+          app.mount('#' + config.id)
+        } else console.log('ERROR : Tag "' + config.id + '" not define ')
+      }
+    }
+  }
+})(window.Drupal)

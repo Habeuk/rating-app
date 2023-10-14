@@ -2,7 +2,6 @@
 import { computed, h, ref } from 'vue'
 import StarsRate from './StarsRate.vue'
 import PercentBar from './PercentBar.vue'
-import addComment from './addComment.vue'
 
 export default {
   props: {
@@ -58,15 +57,12 @@ export default {
       applyFilter
     }
   },
-  components: { StarsRate, PercentBar, addComment }
+  components: { StarsRate, PercentBar }
 }
 </script>
 
 <template>
   <div class="resume-container">
-    <div class="container-add-comment">
-      <addComment></addComment>
-    </div>
     <div class="comments-review">
       <span class="d-flex align-items-center">
         <StarsRate class="stars-review d-flex" :percentage="100" />
@@ -83,10 +79,11 @@ export default {
         />
       </div>
       <div class="comments-resume-counts">
-        <span class="resume-count font-weight-bold" v-for="index in 5" :key="6 - index"
-          >({{ ratesCounts[5 - index] }})</span
-        >
+        <span class="resume-count font-weight-bold" v-for="index in 5" :key="6 - index">
+          ({{ ratesCounts[5 - index] }})
+        </span>
       </div>
+
       <div class="comments-resume-graphs">
         <div v-for="index in 5" :key="6 - index" class="graph-container">
           <PercentBar

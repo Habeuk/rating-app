@@ -1,8 +1,8 @@
 @use './variables.scss' as *;
 @use '@stephane888/wbu-atomique/scss/_variables.scss' as *;
 .add-comment {
-  padding: $wbu-margin $wbu-margin * 1.5;
-  box-shadow: 0 6px 15px rgb(235 235 235 / 52%);
+  //padding: $wbu-margin $wbu-margin * 1.5;
+  box-shadow: 0 6px 15px rgb(232 232 232 / 82%);
   margin-bottom: $wbu-margin * 2;
   .fields {
     margin-bottom: $wbu-margin * 1.5;
