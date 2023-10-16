@@ -3,7 +3,7 @@ export const dislikePath = '/rating-app/review/like-dislike' //id represent the 
 export const resetActionVar = '&reset=1'
 export const appId = 'app'
 //export const appIdReviews = 'rating-app-reviews'
-export const appClassStart = 'rating-app-start'
+//export const appClassStart = '.rating-app-start'
 //export const dataEntityIdSelector = 'data-entity-id'
 //export const dataEntityTypeIdSelector = 'data-entity-type-id'
 export const dataUrlGetReviews = 'data-url-get-reviews'

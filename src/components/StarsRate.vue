@@ -2,7 +2,7 @@
 import { h, ref } from 'vue'
 export default {
   props: {
-    id: Number,
+    id: [Number, String],
     starsNumber: Number,
     percentage: Number,
     label: {
@@ -51,8 +51,9 @@ export default {
         element == 2 ? halfStar : star
       )
     })
+    console.log('props.label : ', props)
     return () =>
-      h('span', [
+      h('span', { class: 'd-flex' }, [
         ...htmlStars,
         props.label == '' ? '' : h('span', { class: props.labelClass }, props.label)
       ])

@@ -9,12 +9,13 @@ import PrimeVue from 'primevue/config'
 
 import { dataUrlGetReviews, urlAddcomment, paginator } from './general-configs'
 ;(function (Drupal) {
-  Drupal.behaviors.rating_app = {
+  Drupal.behaviors.rating_app_reviews = {
     attach: function (context, settings) {
       if (settings.rating_app) {
-        const config = settings.rating_app
+        const config = settings.rating_app.review
         const application = context.getElementById ? context.getElementById(config.id) : null
-        if (application) {
+        if (application && !application.classList.contains('loaded')) {
+          application.classList.add('loaded')
           paginator.commentsPerPages = config.comments_per_pages
           store.commit('INIT_HANDLER', config.entity_id)
           store.commit('SET_ENTITY_TYPE_ID', config.entity_type_id)
@@ -29,7 +30,7 @@ import { dataUrlGetReviews, urlAddcomment, paginator } from './general-configs'
           //
           app.use(store)
           app.mount('#' + config.id)
-        } else console.log('ERROR : Tag "' + config.id + '" not define ')
+        }
       }
     }
   }

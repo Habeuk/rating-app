@@ -51,7 +51,6 @@ const dislikeComment = (payload) => {
 
 <template>
   <div class="comments-widget">
-    <div class="comments-header"></div>
     <RatingResume
       @applyFilter="updateFilter"
       :rates-counts="store.state.summary"
@@ -84,10 +83,6 @@ const dislikeComment = (payload) => {
 .comments {
   &-widget {
     width: 100%;
-  }
-
-  &-header {
-    padding: 25px 10px 0;
   }
 }
 </style>
