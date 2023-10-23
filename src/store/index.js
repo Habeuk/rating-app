@@ -17,6 +17,7 @@ export default new Vuex.Store({
     comment_type: null,
     urlAddcomment: null,
     field_name: null,
+    loadingData: true,
     form: {
       titre: '',
       comment: '',
@@ -80,6 +81,15 @@ export default new Vuex.Store({
     SET_FIELD_NAME(state, payload) {
       state.field_name = payload
     },
+    RESET_FORM(state) {
+      console.log('reset form : ', state.form)
+      state.form = {
+        titre: '',
+        comment: '',
+        start: 0
+      }
+      console.log('reset form : ', state.form)
+    },
     SET_DATAS(state, payload) {
       state.comments = payload.reviews
       state.configs = payload.configs
@@ -119,6 +129,7 @@ export default new Vuex.Store({
      * @param {*} payload
      */
     loadData({ commit, state }, payload) {
+      state.loadingData = true
       let url = state.url_get_reviews + '?limit=' + state.paginator.commentsPerPages
       if (payload.note || payload.note == 0) commit('UPDATE_FILTER', { note: payload.note })
       if (state.rateSelected) url += '&note=' + state.rateSelected
@@ -131,9 +142,13 @@ export default new Vuex.Store({
         .dGet(url)
         .then((response) => {
           commit('SET_DATAS', response.data)
+          setTimeout(() => {
+            state.loadingData = false
+          }, 250)
         })
         .catch((err) => {
           console.log('something went wrong :', err)
+          state.loadingData = false
         })
     },
     likeComment({ commit, state }, payload) {

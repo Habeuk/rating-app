@@ -52,7 +52,10 @@
       </form>
     </div>
   </Transition>
-  <div v-if="!showForm" class="d-flex justify-content-center">
+  <div
+    v-show="!showForm"
+    :class="['d-flex justify-content-center', 'button-reation', showForm ? 'button-hide' : '']"
+  >
     <Button
       type="button"
       label="Rediger un avis"
@@ -65,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import { useStore } from 'vuex'
 import Button from 'primevue/button'
@@ -73,22 +76,23 @@ import InputText from 'primevue/inputtext'
 import Rating from 'primevue/rating'
 import Textarea from 'primevue/textarea'
 const store = useStore()
-const form = store.state.form
+const form = computed(() => {
+  return store.state.form
+})
 store.dispatch()
 //import { useToast } from 'primevue/usetoast'
-const { handleSubmit, resetForm } = useForm()
+const { handleSubmit } = useForm()
 
 // field: comment description
-const { errorMessage } = useField(form.comment, validateComment)
+const { errorMessage } = useField(form.value.comment, validateComment)
 function validateComment() {
-  if (!form.comment) {
-    console.log('error')
+  if (!form.value.comment) {
     return 'Votre avis est requis'
   }
   return true
 }
 const submitDisable = ref(true)
-watch(form, () => {
+watch(store.state.form, () => {
   store.dispatch('ValidFormAddComment').then((resp) => {
     if (resp) submitDisable.value = false
     else submitDisable.value = true
@@ -102,7 +106,7 @@ const loading = ref(false)
 
 const onSubmit = handleSubmit(() => {
   console.log('onSubmit : ', form)
-  if (!form.start) {
+  if (!form.value.start) {
     errorStart.value = 'Vous devez selectionner au moins une etoile'
   } else {
     loading.value = true
@@ -111,11 +115,15 @@ const onSubmit = handleSubmit(() => {
       .dispatch('addComment')
       .then(() => {
         loading.value = false
+        showForm.value = false
+        store.dispatch('loadData', {})
+        setTimeout(() => {
+          store.commit('RESET_FORM')
+        }, 500)
       })
       .catch(() => {
         loading.value = false
       })
-    resetForm()
   }
 })
 </script>
@@ -132,5 +140,16 @@ const onSubmit = handleSubmit(() => {
   transform: translateX(20px);
   opacity: 0;
   max-height: 0;
+}
+.button-reation {
+  transition: all 1s ease-out;
+  max-height: 50px;
+  opacity: 1;
+  overflow: hidden;
+  &.button-hide {
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    max-height: 0;
+  }
 }
 </style>

@@ -51,7 +51,6 @@ export default {
         element == 2 ? halfStar : star
       )
     })
-    console.log('props.label : ', props)
     return () =>
       h('span', { class: 'd-flex' }, [
         ...htmlStars,

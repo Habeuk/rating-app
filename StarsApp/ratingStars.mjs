@@ -1773,7 +1773,7 @@ const hn = {
     let c = o.map((u) => K("span", {
       class: [u ? t : n, "comment-stars"]
     }, u == 2 ? l : d));
-    return console.log("props.label : ", e), () => K("span", {
+    return () => K("span", {
       class: "d-flex"
     }, [...c, e.label == "" ? "" : K("span", {
       class: e.labelClass

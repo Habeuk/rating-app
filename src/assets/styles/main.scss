@@ -22,6 +22,19 @@
 
 .comments-widget {
   color: $font-color-primary;
+  position: relative;
+  &.loading {
+    min-height: 50px;
+    &::after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background-color: rgba(#333, 0.15);
+      content: ' ... ';
+    }
+  }
 
   & > * {
     padding-inline: $default-inline-padding;

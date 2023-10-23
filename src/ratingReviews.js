@@ -15,7 +15,7 @@ import { dataUrlGetReviews, urlAddcomment, paginator } from './general-configs'
         const config = settings.rating_app.review
         const application = context.getElementById ? context.getElementById(config.id) : null
         if (application && !application.classList.contains('loaded')) {
-          application.classList.add('loaded')
+          application.classList.add('loaded', 'rating-app-reviews')
           paginator.commentsPerPages = config.comments_per_pages
           store.commit('INIT_HANDLER', config.entity_id)
           store.commit('SET_ENTITY_TYPE_ID', config.entity_type_id)

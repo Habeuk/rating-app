@@ -22,6 +22,10 @@ const getComments = computed(() => {
 const paginate = computed(() => {
   return store.state.commentsNumber > store.state.paginator.commentsPerPages
 })
+
+const loadingData = computed(() => {
+  return store.state.loadingData
+})
 /**
  * function to get the count of each rate
  * @param {Array} comments
@@ -50,7 +54,7 @@ const dislikeComment = (payload) => {
 </script>
 
 <template>
-  <div class="comments-widget">
+  <div :class="['comments-widget', loadingData ? 'loading' : '']">
     <RatingResume
       @applyFilter="updateFilter"
       :rates-counts="store.state.summary"
