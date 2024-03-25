@@ -65,6 +65,10 @@ export default {
       const month = jsMonth < 10 ? '0' + jsMonth : jsMonth
       return day + '/' + month + '/' + (d.getYear() - 100)
     }
+    const customerName = props.surname
+      ? props.surname + ' ' + props.name.substring(0, 1).toUpperCase() + '.'
+      : props.name
+    const initial = props.surname ? props.surname.substring(0, 1) : props.name.substring(0, 1)
     return {
       ...props,
       stateText,
@@ -73,6 +77,8 @@ export default {
       showMediaLink,
       liked,
       disliked,
+      customerName,
+      initial,
       getFormatedDate,
       popupLink,
       actionLike,
@@ -88,7 +94,7 @@ export default {
     <div class="comment-header">
       <span class="user-profil-icon">
         <span class="user-profil-letter">
-          {{ name[0] }}
+          {{ initial.toUpperCase() }}
         </span>
         <span v-if="state" class="verified-icon">
           <svg
@@ -106,7 +112,7 @@ export default {
       </span>
       <div class="header-elements">
         <span class="user-profil-name">
-          {{ name }}
+          {{ customerName }}
         </span>
         <div class="user-verified-state">
           <span>
