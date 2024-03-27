@@ -6,7 +6,6 @@ export default {
   props: {
     id: Number,
     name: String,
-    lastname: String,
     note: Number,
     description: String,
     created_at: Number,
@@ -65,12 +64,19 @@ export default {
       const month = jsMonth < 10 ? '0' + jsMonth : jsMonth
       return day + '/' + month + '/' + (d.getYear() - 100)
     }
-    const customerName = props.lastname
-      ? props.name + ' ' + props.lastname.substring(0, 1).toUpperCase() + '.'
-      : props.name
-    const initial = props.lastname ? props.lastname.substring(0, 1) : props.name.substring(0, 1)
-    let icon = props.name.substring(0, 1) + props.lastname.substring(0, 1)
-    icon = icon.toUpperCase()
+
+    /**
+     * Formatage de l'icon
+     * Si on a le prenom suivit de l'initial du nom alors on prend l'initial du prenom suivit de celui du nom
+     * ex:  Cedrick L. => CL
+     */
+    const icon =
+      props.name.length &&
+      props.name.split(' ').length &&
+      props.name.substring(props.name.length - 1, props.name.length) == '.'
+        ? props.name.substring(0, 1) +
+          props.name.substring(props.name.length - 2, props.name.length - 1)
+        : props.name.substring(0, 1)
     return {
       ...props,
       stateText,
@@ -79,8 +85,6 @@ export default {
       showMediaLink,
       liked,
       disliked,
-      customerName,
-      initial,
       icon,
       getFormatedDate,
       popupLink,
@@ -115,7 +119,7 @@ export default {
       </span>
       <div class="header-elements">
         <span class="user-profil-name">
-          {{ customerName }}
+          {{ name }}
         </span>
         <div class="user-verified-state">
           <span>
