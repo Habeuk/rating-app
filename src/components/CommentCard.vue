@@ -6,7 +6,7 @@ export default {
   props: {
     id: Number,
     name: String,
-    surname: String,
+    lastname: String,
     note: Number,
     description: String,
     created_at: Number,
@@ -65,10 +65,12 @@ export default {
       const month = jsMonth < 10 ? '0' + jsMonth : jsMonth
       return day + '/' + month + '/' + (d.getYear() - 100)
     }
-    const customerName = props.surname
-      ? props.surname + ' ' + props.name.substring(0, 1).toUpperCase() + '.'
+    const customerName = props.lastname
+      ? props.name + ' ' + props.lastname.substring(0, 1).toUpperCase() + '.'
       : props.name
-    const initial = props.surname ? props.surname.substring(0, 1) : props.name.substring(0, 1)
+    const initial = props.lastname ? props.lastname.substring(0, 1) : props.name.substring(0, 1)
+    let icon = props.name.substring(0, 1) + props.lastname.substring(0, 1)
+    icon = icon.toUpperCase()
     return {
       ...props,
       stateText,
@@ -79,6 +81,7 @@ export default {
       disliked,
       customerName,
       initial,
+      icon,
       getFormatedDate,
       popupLink,
       actionLike,
@@ -94,7 +97,7 @@ export default {
     <div class="comment-header">
       <span class="user-profil-icon">
         <span class="user-profil-letter">
-          {{ initial.toUpperCase() }}
+          {{ icon.toUpperCase() }}
         </span>
         <span v-if="state" class="verified-icon">
           <svg

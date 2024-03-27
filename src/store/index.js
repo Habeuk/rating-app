@@ -19,7 +19,7 @@ export default new Vuex.Store({
                 return {
                     id: 0,
                     name: "Lelong f.",
-                    surname: "",
+                    lastname: "",
                     state: true,
                     rate: 2,
                     title: " Parfait ",
