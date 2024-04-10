@@ -6,30 +6,36 @@ import './assets/styles/rateStars.scss'
   Drupal.behaviors.rating_app_start = {
     attach: function (context, settings) {
       if (settings.rating_app) {
-        const config = settings.rating_app.start
-        const url = config.url_get_start
-        const element = context.getElementById ? context.getElementById(config.id) : null
-        if (element) {
-          if (!element.classList.contains('loaded')) {
-            element.classList.add('loaded')
-            axios
-              .dGet(url)
-              .then((response) => {
-                createApp(StarsRate, {
-                  percentage: response.data.percent,
-                  label: response.data.count + ' Avis',
-                  id: config.id
-                }).mount(element)
-              })
-              .catch((err) => {
-                console.log('something went wrong: ', err)
-                createApp(StarsRate, {
-                  percentage: 0,
-                  id: config.id,
-                  label: '0 Avis'
-                }).mount(element)
-              })
-          }
+        //const config = settings.rating_app.start
+        const elements = context.querySelectorAll
+          ? context.querySelectorAll('.rating-app-start')
+          : null
+        if (elements && elements.length) {
+          elements.forEach((element) => {
+            if (!element.classList.contains('loaded')) {
+              element.classList.add('loaded')
+              const url = element.getAttribute('data_url_get_start')
+              const id = element.getAttribute('data_entity_id')
+              axios
+                .dGet(url)
+                .then((response) => {
+                  createApp(StarsRate, {
+                    percentage: response.data.percent,
+                    label: response.data.count + ' Avis',
+                    id: id,
+                    'label-class': 'pl-2'
+                  }).mount(element)
+                })
+                .catch((err) => {
+                  console.log('something went wrong: ', err)
+                  createApp(StarsRate, {
+                    percentage: 0,
+                    id: id,
+                    label: '0 Avis'
+                  }).mount(element)
+                })
+            }
+          })
         }
       }
     }
