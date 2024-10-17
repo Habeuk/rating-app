@@ -133,7 +133,7 @@ export default {
       </div>
     </div>
     <div class="comment-main">
-      <div class="comment-title">{{ title }}</div>
+      <div v-if="title" class="comment-title">{{ title }}</div>
       <div class="content-content" v-html="description"></div>
     </div>
     <div class="comment-footer">
