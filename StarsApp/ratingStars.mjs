@@ -21,7 +21,7 @@ const $e = q("string"), b = q("function"), Oe = q("number"), z = (e) => e !== nu
     return !1;
   const t = te(e);
   return (t === null || t === Object.prototype || Object.getPrototypeOf(t) === null) && !(Symbol.toStringTag in e) && !(Symbol.iterator in e);
-}, We = O("Date"), ve = O("File"), Ke = O("Blob"), Ge = O("FileList"), Xe = (e) => z(e) && b(e.pipe), Ze = (e) => {
+}, We = O("Date"), Ke = O("File"), ve = O("Blob"), Ge = O("FileList"), Xe = (e) => z(e) && b(e.pipe), Ze = (e) => {
   let t;
   return e && (typeof FormData == "function" && e instanceof FormData || b(e.append) && ((t = M(e)) === "formdata" || // detect form-data instance
   t === "object" && b(e.toString) && e.toString() === "[object FormData]"));
@@ -138,10 +138,10 @@ const et = (e, t, n, { allOwnKeys: r } = {}) => (_(t, (s, o) => {
   };
   return C(e) ? r(e) : r(String(e).split(t)), n;
 }, ht = () => {
-}, mt = (e, t) => (e = +e, Number.isFinite(e) ? e : t), v = "abcdefghijklmnopqrstuvwxyz", ce = "0123456789", xe = {
+}, mt = (e, t) => (e = +e, Number.isFinite(e) ? e : t), K = "abcdefghijklmnopqrstuvwxyz", ce = "0123456789", xe = {
   DIGIT: ce,
-  ALPHA: v,
-  ALPHA_DIGIT: v + v.toUpperCase() + ce
+  ALPHA: K,
+  ALPHA_DIGIT: K + K.toUpperCase() + ce
 }, yt = (e = 16, t = xe.ALPHA_DIGIT) => {
   let n = "";
   const { length: r } = t;
@@ -182,8 +182,8 @@ const Et = (e) => {
   isPlainObject: U,
   isUndefined: L,
   isDate: We,
-  isFile: ve,
-  isBlob: Ke,
+  isFile: Ke,
+  isBlob: ve,
   isRegExp: ft,
   isFunction: b,
   isStream: Xe,
@@ -624,7 +624,7 @@ function Ht(e) {
   return t;
 }
 const It = (e) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(e.trim());
-function K(e, t, n, r, s) {
+function v(e, t, n, r, s) {
   if (a.isFunction(r))
     return r.call(this, t, n);
   if (s && (t = n), !!a.isString(t)) {
@@ -684,7 +684,7 @@ class V {
   has(t, n) {
     if (t = F(t), t) {
       const r = a.findKey(this, t);
-      return !!(r && this[r] !== void 0 && (!n || K(this, this[r], r, n)));
+      return !!(r && this[r] !== void 0 && (!n || v(this, this[r], r, n)));
     }
     return !1;
   }
@@ -694,7 +694,7 @@ class V {
     function o(i) {
       if (i = F(i), i) {
         const u = a.findKey(r, i);
-        u && (!n || K(r, r[u], u, n)) && (delete r[u], s = !0);
+        u && (!n || v(r, r[u], u, n)) && (delete r[u], s = !0);
       }
     }
     return a.isArray(t) ? t.forEach(o) : o(t), s;
@@ -704,7 +704,7 @@ class V {
     let r = n.length, s = !1;
     for (; r--; ) {
       const o = n[r];
-      (!t || K(this, this[o], o, t, !0)) && (delete this[o], s = !0);
+      (!t || v(this, this[o], o, t, !0)) && (delete this[o], s = !0);
     }
     return s;
   }
@@ -859,11 +859,11 @@ const Wt = R.isStandardBrowserEnv ? (
     };
   }()
 );
-function vt(e) {
+function Kt(e) {
   const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
   return t && t[1] || "";
 }
-function Kt(e, t) {
+function vt(e, t) {
   e = e || 10;
   const n = new Array(e), r = new Array(e);
   let s = 0, o = 0, i;
@@ -881,7 +881,7 @@ function Kt(e, t) {
 }
 function pe(e, t) {
   let n = 0;
-  const r = Kt(50, 250);
+  const r = vt(50, 250);
   return (s) => {
     const o = s.loaded, i = s.lengthComputable ? s.total : void 0, u = o - n, d = r(u), c = o <= i;
     n = o;
@@ -956,7 +956,7 @@ const Gt = typeof XMLHttpRequest < "u", Xt = Gt && function(e) {
     }), a.isUndefined(e.withCredentials) || (c.withCredentials = !!e.withCredentials), i && i !== "json" && (c.responseType = e.responseType), typeof e.onDownloadProgress == "function" && c.addEventListener("progress", pe(e.onDownloadProgress, !0)), typeof e.onUploadProgress == "function" && c.upload && c.upload.addEventListener("progress", pe(e.onUploadProgress)), (e.cancelToken || e.signal) && (u = (y) => {
       c && (r(!y || y.type ? new B(null, e, c) : y), c.abort(), c = null);
     }, e.cancelToken && e.cancelToken.subscribe(u), e.signal && (e.signal.aborted ? u() : e.signal.addEventListener("abort", u)));
-    const E = vt(l);
+    const E = Kt(l);
     if (E && R.protocols.indexOf(E) === -1) {
       r(new m("Unsupported protocol " + E + ":", m.ERR_BAD_REQUEST, e));
       return;
@@ -1465,14 +1465,15 @@ an.forEach((e) => {
   on.get(n).then((s) => {
     s.status == 200 && ie(Ee, {
       percentage: s.data.minify.mean,
-      label: s.data.minify.count + " Avis",
+      label: "(" + s.data.minify.count + ")",
+      labelClass: "comment-count",
       id: r
     }).mount(e);
   }).catch((s) => {
     console.log("something went wrong: ", s), ie(Ee, {
       percentage: 0,
       id: r,
-      label: "0 Avis"
+      label: "(0)"
     }).mount(e);
   }), be += 1;
 });

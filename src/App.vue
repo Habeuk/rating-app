@@ -50,7 +50,7 @@ const dislikeComment = (payload) => {
 
 <template>
   <div class="comments-widget">
-    <div class="comments-header"></div>
+    <!-- <div class="comments-header"></div> -->
     <RatingResume @applyFilter="updateFilter" :rates-counts="store.state.summary"
       :rate-selected="store.state.rateSelected" />
     <div class="clear-fix"></div>
