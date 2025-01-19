@@ -5,6 +5,6 @@ export default {
     window.drupalSettings && window.drupalSettings.path && window.drupalSettings.path.pathPrefix
       ? window.drupalSettings.path.pathPrefix.replaceAll('/', '')
       : null,
-  debug: true,
+  debug: false,
   TestDomain: window.location.hostname === 'localhost' ? 'http://my-nutribe.kksa' : null
 }
