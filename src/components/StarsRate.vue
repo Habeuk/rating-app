@@ -51,7 +51,7 @@ export default {
         element == 2 ? halfStar : star
       )
     })
-    console.log('props : ', props)
+
     return () =>
       h('span', { class: 'd-flex align-items-center' }, [
         ...htmlStars,

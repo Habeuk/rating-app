@@ -82,13 +82,11 @@ export default new Vuex.Store({
       state.field_name = payload
     },
     RESET_FORM(state) {
-      console.log('reset form : ', state.form)
       state.form = {
         titre: '',
         comment: '',
         start: 0
       }
-      console.log('reset form : ', state.form)
     },
     SET_DATAS(state, payload) {
       state.comments = payload.reviews

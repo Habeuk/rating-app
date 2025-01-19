@@ -105,7 +105,6 @@ const showForm = ref(false)
 const loading = ref(false)
 
 const onSubmit = handleSubmit(() => {
-  console.log('onSubmit : ', form)
   if (!form.value.start) {
     errorStart.value = 'Vous devez selectionner au moins une etoile'
   } else {
