@@ -6,7 +6,6 @@ export default {
   props: {
     id: Number,
     name: String,
-    surname: String,
     note: Number,
     description: String,
     created_at: Number,
@@ -65,6 +64,19 @@ export default {
       const month = jsMonth < 10 ? '0' + jsMonth : jsMonth
       return day + '/' + month + '/' + (d.getYear() - 100)
     }
+
+    /**
+     * Formatage de l'icon
+     * Si on a le prenom suivit de l'initial du nom alors on prend l'initial du prenom suivit de celui du nom
+     * ex:  Cedrick L. => CL
+     */
+    const icon =
+      props.name.length &&
+      props.name.split(' ').length &&
+      props.name.substring(props.name.length - 1, props.name.length) == '.'
+        ? props.name.substring(0, 1) +
+          props.name.substring(props.name.length - 2, props.name.length - 1)
+        : props.name.substring(0, 1)
     return {
       ...props,
       stateText,
@@ -73,6 +85,7 @@ export default {
       showMediaLink,
       liked,
       disliked,
+      icon,
       getFormatedDate,
       popupLink,
       actionLike,
@@ -88,7 +101,7 @@ export default {
     <div class="comment-header">
       <span class="user-profil-icon">
         <span class="user-profil-letter">
-          {{ name[0] }}
+          {{ icon.toUpperCase() }}
         </span>
         <span v-if="state" class="verified-icon">
           <svg
@@ -120,8 +133,8 @@ export default {
       </div>
     </div>
     <div class="comment-main">
-      <div class="comment-title">{{ title }}</div>
-      <div class="content-content" v-html="description"></div>
+      <div v-if="title" class="comment-title">{{ title }}</div>
+      <div class="comment-content" v-html="description"></div>
     </div>
     <div class="comment-footer">
       <div class="footer-action">
