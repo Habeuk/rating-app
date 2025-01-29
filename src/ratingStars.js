@@ -14,7 +14,7 @@ element.forEach(element => {
             if (response.status == 200) {
                 createApp(StarsRate, {
                     percentage: response.data.minify.mean,
-                    label: "(" + response.data.minify.count + ")",
+                    label: response.data.minify.count + " avis",
                     labelClass: "comment-count",
                     id: temp
                 }).mount(element);

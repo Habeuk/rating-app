@@ -1465,7 +1465,7 @@ an.forEach((e) => {
   on.get(n).then((s) => {
     s.status == 200 && ie(Ee, {
       percentage: s.data.minify.mean,
-      label: "(" + s.data.minify.count + ")",
+      label: s.data.minify.count + " avis",
       labelClass: "comment-count",
       id: r
     }).mount(e);
