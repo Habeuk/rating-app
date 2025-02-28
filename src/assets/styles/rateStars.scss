@@ -20,6 +20,9 @@
   float: left;
   height: 16px;
   margin-left: 5px;
+  &:first-child {
+    margin-left: 0;
+  }
   &.comment-icon-star {
     color: $color-third;
     stop-color: currentColor;
