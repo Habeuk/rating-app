@@ -1465,12 +1465,12 @@ an.forEach((e) => {
   on.get(n).then((s) => {
     s.status == 200 && ie(Ee, {
       percentage: s.data.minify.mean,
-      label: s.data.minify.count + " avis",
+      label: s.data.minify.count + " avis - Gagnez un bon d'achat de 10 euros",
       labelClass: "comment-count",
       id: r
     }).mount(e);
   }).catch((s) => {
-    console.log("something went wrong: ", s), ie(Ee, {
+    console.log(" Something went wrong: ", s), ie(Ee, {
       percentage: 0,
       id: r,
       label: "(0)"

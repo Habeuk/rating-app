@@ -1,32 +1,33 @@
-import { createApp } from "vue";
-import axios from "./axios-configure";
-import StarsRate from "./components/StarsRate.vue";
-import './assets/styles/rateStars.scss';
+import { createApp } from 'vue'
+import axios from './axios-configure'
+import StarsRate from './components/StarsRate.vue'
+import './assets/styles/rateStars.scss'
 
-const element = Array.prototype.slice.call(document.getElementsByClassName("rating-app-item"));
-let count = 1;
-element.forEach(element => {
-    const product_handler = element.getAttribute("data-product-handler");
-    const url = "/shopify/get-reviews.php?minify=1&" + "product_handler=" + product_handler;
-    const temp = count;
-    axios.get(url)
-        .then((response) => {
-            if (response.status == 200) {
-                createApp(StarsRate, {
-                    percentage: response.data.minify.mean,
-                    label: response.data.minify.count + " avis",
-                    labelClass: "comment-count",
-                    id: temp
-                }).mount(element);
-            }
-        })
-        .catch((err) => {
-            console.log("something went wrong: ", err);
-            createApp(StarsRate, {
-                percentage: 0,
-                id: temp,
-                label: "(0)",
-            }).mount(element);
-        })
-    count += 1;
-});
+const element = Array.prototype.slice.call(document.getElementsByClassName('rating-app-item'))
+let count = 1
+element.forEach((element) => {
+  const product_handler = element.getAttribute('data-product-handler')
+  const url = '/shopify/get-reviews.php?minify=1&' + 'product_handler=' + product_handler
+  const temp = count
+  axios
+    .get(url)
+    .then((response) => {
+      if (response.status == 200) {
+        createApp(StarsRate, {
+          percentage: response.data.minify.mean,
+          label: response.data.minify.count + " avis - Gagnez un bon d'achat de 10 euros",
+          labelClass: 'comment-count',
+          id: temp
+        }).mount(element)
+      }
+    })
+    .catch((err) => {
+      console.log(' Something went wrong: ', err)
+      createApp(StarsRate, {
+        percentage: 0,
+        id: temp,
+        label: '(0)'
+      }).mount(element)
+    })
+  count += 1
+})
