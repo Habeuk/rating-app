@@ -1461,18 +1461,18 @@ const nn = w, rn = "https://reviews.habeuk.com", sn = nn.create({
 const on = Array.prototype.slice.call(document.getElementsByClassName("rating-app-item"));
 let Ee = 1;
 on.forEach((e) => {
-  const n = "/api/v1/reviews/" + e.getAttribute("data-product-handler"), r = Ee;
-  sn.get(n).then((s) => {
-    s.status == 200 && ie(we, {
-      percentage: s.data.minify.mean,
-      label: s.data.minify.count + " avis - Gagnez un bon d'achat de 10 euros.",
+  const t = e.getAttribute("data-product-handler"), n = e.getAttribute("data-title-suffix"), r = "/api/v1/reviews/" + t, s = Ee;
+  sn.get(r).then((o) => {
+    o.status == 200 && ie(we, {
+      percentage: o.data.minify.mean,
+      label: o.data.minify.count + " " + n,
       labelClass: "comment-count",
-      id: r
+      id: s
     }).mount(e);
-  }).catch((s) => {
-    console.log("something went wrong: ", s), ie(we, {
+  }).catch((o) => {
+    console.log("something went wrong: ", o), ie(we, {
       percentage: 0,
-      id: r,
+      id: s,
       label: "(0)"
     }).mount(e);
   }), Ee += 1;

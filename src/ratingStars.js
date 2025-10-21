@@ -7,6 +7,7 @@ const element = Array.prototype.slice.call(document.getElementsByClassName('rati
 let count = 1
 element.forEach((element) => {
   const product_handler = element.getAttribute('data-product-handler')
+  const title_suffix = element.getAttribute('data-title-suffix')
   const url = '/api/v1/reviews/' + product_handler
   const temp = count
   axios
@@ -15,7 +16,7 @@ element.forEach((element) => {
       if (response.status == 200) {
         createApp(StarsRate, {
           percentage: response.data.minify.mean,
-          label: response.data.minify.count + " avis - Gagnez un bon d'achat de 10 euros.",
+          label: response.data.minify.count + ' ' + title_suffix,
           labelClass: 'comment-count',
           id: temp
         }).mount(element)
