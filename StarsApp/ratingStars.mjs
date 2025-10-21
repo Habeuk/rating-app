@@ -1461,18 +1461,18 @@ const rn = w, we = window.location.host, sn = we.includes("localhost") || we.inc
 const an = Array.prototype.slice.call(document.getElementsByClassName("rating-app-item"));
 let be = 1;
 an.forEach((e) => {
-  const n = "/shopify/get-reviews.php?minify=1&product_handler=" + e.getAttribute("data-product-handler"), r = be;
-  on.get(n).then((s) => {
-    s.status == 200 && ie(Ee, {
-      percentage: s.data.minify.mean,
-      label: s.data.minify.count + " avis - Gagnez un bon d'achat de 10 euros",
+  const t = e.getAttribute("data-product-handler"), n = e.getAttribute("data-title-suffix"), r = "/shopify/get-reviews.php?minify=1&product_handler=" + t, s = be;
+  on.get(r).then((o) => {
+    o.status == 200 && ie(Ee, {
+      percentage: o.data.minify.mean,
+      label: o.data.minify.count + " " + n,
       labelClass: "comment-count",
-      id: r
+      id: s
     }).mount(e);
-  }).catch((s) => {
-    console.log(" Something went wrong: ", s), ie(Ee, {
+  }).catch((o) => {
+    console.log(" Something went wrong: ", o), ie(Ee, {
       percentage: 0,
-      id: r,
+      id: s,
       label: "(0)"
     }).mount(e);
   }), be += 1;
